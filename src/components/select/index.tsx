@@ -4,6 +4,8 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 
+import './styles.scss';
+
 interface SelectProps {
     label: string;
     options: Array<any>;
@@ -17,14 +19,14 @@ export default function SelectInput({ label, options }: SelectProps) {
     };
 
     return (
-        <FormControl sx={{ m: 1, width: 1 }} size='small'>
+        <FormControl className='custom-select' sx={{ m: 1, width: 1, color: '#fff' }} size='small'>
             <InputLabel id='demo-select-small-label'>{label}</InputLabel>
             <Select
                 labelId='demo-select-small-label'
-                id='demo-select-small'
                 value={todoStatus}
                 label={label}
                 onChange={handleChange}
+                sx={{ color: '#fff' }}
             >
                 <MenuItem value={'all'}>{'Показать все'}</MenuItem>
                 <MenuItem value={'completed'}>{'Выполненные'}</MenuItem>

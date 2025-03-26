@@ -1,0 +1,28 @@
+@import 'styles/variables.scss';
+@import 'styles/mixins.scss';
+
+section.todo__header {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    @include flex-row();
+    @include all-centered();
+    padding: 0 20px;
+    margin-bottom: 10px;
+    background-color: $dark-grey-color;
+    border-radius: 8px;
+    border: 1px solid #3f3f3f;
+
+    div.header {
+        width: 100%;
+        box-sizing: border-box;
+        @include flex-row();
+        align-items: start;
+        padding: 0 20px;
+        .header__title {
+            font-size: $large-size;
+            font-family: 500;
+            color: $white-color;
+        }
+    }
+}
