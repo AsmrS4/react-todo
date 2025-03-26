@@ -1,0 +1,21 @@
+@import 'styles/variables.scss';
+
+.custom-select {
+    color: $white-color;
+    label {
+        color: $white-color;
+    }
+    div {
+        svg {
+            color: #b7b7b7;
+        }
+        fieldset {
+            border: 1px solid #3f3f3f;
+        }
+    }
+    &:focus {
+        label {
+            color: $white-color;
+        }
+    }
+}

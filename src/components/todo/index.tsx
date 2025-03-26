@@ -14,10 +14,7 @@ interface TodoProps {
 const TodoItem = ({ id, title, text, deadlineAt, status, completed }: TodoProps) => {
     return (
         <>
-            <ListItem
-                key={id}
-                className={completed ? 'todo__item --completed_item' : 'todo__item '}
-            >
+            <ListItem key={id} className={completed ? 'todo__item --completed-item' : 'todo__item'}>
                 <div className='head-wrapper'>
                     <Typography className='item__title'>{title}</Typography>
                     <Chip size='small' label={status}></Chip>
@@ -28,14 +25,29 @@ const TodoItem = ({ id, title, text, deadlineAt, status, completed }: TodoProps)
                 <div className='item__footer'>
                     <div className='date-wrapper'>
                         <RunningWithErrorsIcon sx={{ height: '14px', width: '14px' }} />
-                        <h6>{deadlineAt ? deadlineAt : 'Без дедлайна'}</h6>
+                        <h6>{deadlineAt}</h6>
                     </div>
                     <div className='buttons-wrapper'>
-                        <IconButton sx={{ backgroundColor: '#ffcc00' }} size='small'>
+                        <IconButton
+                            sx={{
+                                backgroundColor: 'inherit',
+                                transition: '0.2s ease-in-out',
+                                '&:hover': {
+                                    backgroundColor: '#ffcc00',
+                                },
+                            }}
+                            size='small'
+                        >
                             <EditIcon sx={{ color: '#fff' }} fontSize='small' />
                         </IconButton>
                         <IconButton
-                            sx={{ backgroundColor: '#ff6666' }}
+                            sx={{
+                                backgroundColor: 'inherit',
+                                transition: '0.2s ease-in-out',
+                                '&:hover': {
+                                    backgroundColor: '#ff6666',
+                                },
+                            }}
                             aria-label='delete'
                             size='small'
                         >
