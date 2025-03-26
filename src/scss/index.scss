@@ -15,9 +15,109 @@ main.todo__app {
 
 .container {
     box-sizing: border-box;
-    max-width: 1200px;
+    padding: 20px;
+    max-width: 996px;
     width: 100%;
     height: auto;
     margin: 0 auto;
     background-color: inherit;
+    @include flex-column();
+    @include column-centered();
+}
+
+section.todo__header {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    @include flex-row();
+    @include all-centered();
+    padding: 10px;
+
+    div.header {
+        width: 100%;
+        box-sizing: border-box;
+        @include flex-row();
+        @include all-centered();
+        .header__title {
+            font-size: $large-size;
+            font-family: 500;
+        }
+    }
+}
+
+.wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.todo__body {
+    width: 100%;
+    @include flex-column();
+    @include all-centered();
+    .todo__filters {
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+        padding: 8px 10px;
+        @include flex-row();
+        @include row-centered();
+    }
+    .todo__list {
+        width: 100%;
+        max-width: 768px;
+        @include flex-column();
+        @include column-centered();
+        gap: 4px;
+        .todo__item {
+            @include flex-row();
+            @include row-centered();
+
+            width: 100%;
+            padding: 8px 8px 8px 12px;
+            border-radius: 4px;
+            box-shadow: 0px 0px 3px 1px rgba(34, 60, 80, 0.3);
+            div {
+                background-color: #66cc00;
+                span {
+                    padding: 8px 12px;
+                }
+            }
+
+            &.--overdued {
+                background-color: #ffcc99;
+                div {
+                    background-color: #ff944d;
+                    #ff6666 span {
+                        padding: 8px 12px;
+                    }
+                }
+            }
+            &.--late {
+                background-color: #ff9999;
+                div {
+                    background-color: #ff6666;
+
+                    span {
+                        padding: 8px 12px;
+                    }
+                }
+            }
+            &.--completed_item {
+                background-color: #a6a6a6;
+
+                p {
+                    text-decoration: line-through;
+                    color: #5a5a5a;
+                }
+                div {
+                    background-color: #8f8f8f;
+
+                    span {
+                        padding: 8px 12px;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
 }

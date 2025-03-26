@@ -7,7 +7,8 @@ export default defineConfig({
     alias:{
       styles:"/src/scss",
       components:"/src/components",
-      hooks:"/src/hooks"
+      hooks:"/src/hooks",
+     
     }
   }
 })
