@@ -1,8 +1,10 @@
 import 'styles/index.scss';
-import { Chip, IconButton, List, ListItem, Typography } from '@mui/material';
+import { Box, Button, Chip, IconButton, List, ListItem, Typography } from '@mui/material';
 import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import SelectInput from './components/select';
+
 function App() {
     return (
         <>
@@ -14,178 +16,207 @@ function App() {
                         </div>
                         <div className='progress-bar'></div>
                     </section>
-                    <div className='wrapper'>
-                        <section className='todo__body --active'>
-                            <div className='todo__filters'></div>
-                            <List className='todo__list'>
-                                <ListItem className='todo__item '>
-                                    <div className='head-wrapper'>
-                                        <Typography className='item__title'>
-                                            Активная задача
-                                        </Typography>
-                                        <Chip size='small' label={'Активная'}></Chip>
-                                    </div>
-                                    <div className='item__inner-wrapper'>
-                                        <Typography className='item__text'>
-                                            Активная задача
-                                        </Typography>
-                                    </div>
-                                    <div className='item__footer'>
-                                        <div className='date-wrapper'>
-                                            <RunningWithErrorsIcon
-                                                sx={{ height: '14px', width: '14px' }}
-                                            />
-                                            <h6>12/12/2025</h6>
+                    <div className='wrapper row'>
+                        <div className='wrapper'>
+                            <section className='todo__body --active'>
+                                <List className='todo__list'>
+                                    <ListItem className='todo__item '>
+                                        <div className='head-wrapper'>
+                                            <Typography className='item__title'>
+                                                Активная задача
+                                            </Typography>
+                                            <Chip size='small' label={'Активная'}></Chip>
                                         </div>
-                                        <div className='buttons-wrapper'>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ffcc00' }}
-                                                size='small'
-                                            >
-                                                <EditIcon sx={{ color: '#fff' }} fontSize='small' />
-                                            </IconButton>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ff6666' }}
-                                                aria-label='delete'
-                                                size='small'
-                                            >
-                                                <DeleteIcon
-                                                    sx={{ color: '#fff' }}
-                                                    fontSize='small'
+                                        <div className='item__inner-wrapper'>
+                                            <Typography className='item__text'>
+                                                Активная задача
+                                            </Typography>
+                                        </div>
+                                        <div className='item__footer'>
+                                            <div className='date-wrapper'>
+                                                <RunningWithErrorsIcon
+                                                    sx={{ height: '14px', width: '14px' }}
                                                 />
-                                            </IconButton>
+                                                <h6>12/12/2025</h6>
+                                            </div>
+                                            <div className='buttons-wrapper'>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ffcc00' }}
+                                                    size='small'
+                                                >
+                                                    <EditIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ff6666' }}
+                                                    aria-label='delete'
+                                                    size='small'
+                                                >
+                                                    <DeleteIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ListItem>
-                                <ListItem className='todo__item --overdued'>
-                                    <div className='head-wrapper'>
-                                        <Typography className='item__title'>
-                                            Активная задача
-                                        </Typography>
-                                        <Chip size='small' label={'Активная'}></Chip>
-                                    </div>
-                                    <div className='item__inner-wrapper'>
-                                        <Typography className='item__text'>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore
-                                            magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                            exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat. Duis aute irure dolor in
-                                            reprehenderit in voluptate velit esse cillum dolore eu
-                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                            non proident, sunt in culpa qui officia deserunt mollit
-                                            anim id est laborum.
-                                        </Typography>
-                                    </div>
-                                    <div className='item__footer'>
-                                        <div className='date-wrapper'>
-                                            <RunningWithErrorsIcon
-                                                sx={{ height: '14px', width: '14px' }}
-                                            />
-                                            <h6>12/12/2025</h6>
+                                    </ListItem>
+                                    <ListItem className='todo__item --overdued'>
+                                        <div className='head-wrapper'>
+                                            <Typography className='item__title'>
+                                                Активная задача
+                                            </Typography>
+                                            <Chip size='small' label={'Активная'}></Chip>
                                         </div>
-                                        <div className='buttons-wrapper'>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ffcc00' }}
-                                                size='small'
-                                            >
-                                                <EditIcon sx={{ color: '#fff' }} fontSize='small' />
-                                            </IconButton>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ff6666' }}
-                                                aria-label='delete'
-                                                size='small'
-                                            >
-                                                <DeleteIcon
-                                                    sx={{ color: '#fff' }}
-                                                    fontSize='small'
+                                        <div className='item__inner-wrapper'>
+                                            <Typography className='item__text'>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit, sed do eiusmod tempor incididunt ut labore et
+                                                dolore magna aliqua. Ut enim ad minim veniam, quis
+                                                nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore
+                                                eu fugiat nulla pariatur. Excepteur sint occaecat
+                                                cupidatat non proident, sunt in culpa qui officia
+                                                deserunt mollit anim id est laborum.
+                                            </Typography>
+                                        </div>
+                                        <div className='item__footer'>
+                                            <div className='date-wrapper'>
+                                                <RunningWithErrorsIcon
+                                                    sx={{ height: '14px', width: '14px' }}
                                                 />
-                                            </IconButton>
+                                                <h6>12/12/2025</h6>
+                                            </div>
+                                            <div className='buttons-wrapper'>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ffcc00' }}
+                                                    size='small'
+                                                >
+                                                    <EditIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ff6666' }}
+                                                    aria-label='delete'
+                                                    size='small'
+                                                >
+                                                    <DeleteIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ListItem>
-                                <ListItem className='todo__item --late'>
-                                    <div className='head-wrapper'>
-                                        <Typography className='item__title'>
-                                            Просроченная задача
-                                        </Typography>
-                                        <Chip size='small' label={'Просроченная'}></Chip>
-                                    </div>
-                                    <div className='item__inner-wrapper'>
-                                        <Typography className='item__text'>
-                                            Просроченная задача
-                                        </Typography>
-                                    </div>
-                                    <div className='item__footer'>
-                                        <div className='date-wrapper'>
-                                            <RunningWithErrorsIcon
-                                                sx={{ height: '14px', width: '14px' }}
-                                            />
-                                            <h6>12/12/2025</h6>
+                                    </ListItem>
+                                    <ListItem className='todo__item --late'>
+                                        <div className='head-wrapper'>
+                                            <Typography className='item__title'>
+                                                Просроченная задача
+                                            </Typography>
+                                            <Chip size='small' label={'Просроченная'}></Chip>
                                         </div>
-                                        <div className='buttons-wrapper'>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ffcc00' }}
-                                                size='small'
-                                            >
-                                                <EditIcon sx={{ color: '#fff' }} fontSize='small' />
-                                            </IconButton>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ff6666' }}
-                                                aria-label='delete'
-                                                size='small'
-                                            >
-                                                <DeleteIcon
-                                                    sx={{ color: '#fff' }}
-                                                    fontSize='small'
+                                        <div className='item__inner-wrapper'>
+                                            <Typography className='item__text'>
+                                                Просроченная задача
+                                            </Typography>
+                                        </div>
+                                        <div className='item__footer'>
+                                            <div className='date-wrapper'>
+                                                <RunningWithErrorsIcon
+                                                    sx={{ height: '14px', width: '14px' }}
                                                 />
-                                            </IconButton>
+                                                <h6>12/12/2025</h6>
+                                            </div>
+                                            <div className='buttons-wrapper'>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ffcc00' }}
+                                                    size='small'
+                                                >
+                                                    <EditIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ff6666' }}
+                                                    aria-label='delete'
+                                                    size='small'
+                                                >
+                                                    <DeleteIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ListItem>
-                            </List>
-                        </section>
-                        <section className='todo__body --completed'>
-                            <List className='todo__list'>
-                                <ListItem className='todo__item --completed-item'>
-                                    <div className='head-wrapper'>
-                                        <Typography className='item__title'>Выполненая</Typography>
-                                        <Chip size='small' label={'Выполнена'}></Chip>
-                                    </div>
-                                    <div className='item__inner-wrapper'>
-                                        <Typography className='item__text'>
-                                            Задача выполнена
-                                        </Typography>
-                                    </div>
-                                    <div className='item__footer'>
-                                        <div className='date-wrapper'>
-                                            <RunningWithErrorsIcon
-                                                sx={{ height: '14px', width: '14px' }}
-                                            />
-                                            <h6>12/12/2025</h6>
+                                    </ListItem>
+                                </List>
+                            </section>
+                            <section className='todo__body --completed'>
+                                <List className='todo__list'>
+                                    <ListItem className='todo__item --completed-item'>
+                                        <div className='head-wrapper'>
+                                            <Typography className='item__title'>
+                                                Выполненая
+                                            </Typography>
+                                            <Chip size='small' label={'Выполнена'}></Chip>
                                         </div>
-                                        <div className='buttons-wrapper'>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ffcc00' }}
-                                                size='small'
-                                            >
-                                                <EditIcon sx={{ color: '#fff' }} fontSize='small' />
-                                            </IconButton>
-                                            <IconButton
-                                                sx={{ backgroundColor: '#ff6666' }}
-                                                aria-label='delete'
-                                                size='small'
-                                            >
-                                                <DeleteIcon
-                                                    sx={{ color: '#fff' }}
-                                                    fontSize='small'
+                                        <div className='item__inner-wrapper'>
+                                            <Typography className='item__text'>
+                                                Задача выполнена
+                                            </Typography>
+                                        </div>
+                                        <div className='item__footer'>
+                                            <div className='date-wrapper'>
+                                                <RunningWithErrorsIcon
+                                                    sx={{ height: '14px', width: '14px' }}
                                                 />
-                                            </IconButton>
+                                                <h6>12/12/2025</h6>
+                                            </div>
+                                            <div className='buttons-wrapper'>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ffcc00' }}
+                                                    size='small'
+                                                >
+                                                    <EditIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{ backgroundColor: '#ff6666' }}
+                                                    aria-label='delete'
+                                                    size='small'
+                                                >
+                                                    <DeleteIcon
+                                                        sx={{ color: '#fff' }}
+                                                        fontSize='small'
+                                                    />
+                                                </IconButton>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ListItem>
-                            </List>
-                        </section>
+                                    </ListItem>
+                                </List>
+                            </section>
+                        </div>
+                        <div className='todo__filters'>
+                            <section className='filter'>
+                                <div className='filter__header'>
+                                    <span>Фильтры</span>
+                                </div>
+                                <div className='filters-wrapper'>
+                                    <SelectInput label='Задачи' options={[]} />
+                                    <SelectInput label='Сортировать' options={[]} />
+                                </div>
+                                <Button sx={{ width: 1 }} variant='outlined'>
+                                    Применить
+                                </Button>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </main>
