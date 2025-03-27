@@ -1,9 +1,9 @@
 import { Button } from '@mui/material';
+import { observer } from 'mobx-react';
+
 import Filters from '../components/filter';
 import TodoList from '../components/list';
 import TodoHeader from '../components/header';
-import { observer } from 'mobx-react';
-import TodoViewModel from '../store/TodoViewModel';
 import todoViewModel from '../store/TodoViewModel';
 
 const Main = observer(() => {
@@ -14,8 +14,7 @@ const Main = observer(() => {
                     <TodoHeader />
                     <div className='wrapper row'>
                         <div className='wrapper'>
-                            <TodoList title='Активные задачи' todos={todoViewModel.todos} />
-                            <TodoList title='Выполненные задачи' todos={[]} />
+                            <TodoList todos={todoViewModel.todos} />
                         </div>
                         <div className='wrapper-column'>
                             <Filters />

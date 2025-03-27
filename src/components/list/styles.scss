@@ -2,6 +2,7 @@
 @import 'styles/mixins.scss';
 
 .todo__body {
+    margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
     @include flex-column();
@@ -9,15 +10,10 @@
     .todo__list::-webkit-scrollbar {
         display: none;
     }
-    .todo__list-header {
-        color: $soft-white-color;
-        width: 100%;
-        box-sizing: border-box;
-        padding-left: 16px;
-    }
+
     .todo__list {
         width: 100%;
-        max-width: 800px;
+        max-width: 900px;
         @include flex-column();
         @include column-centered();
         gap: 8px;
