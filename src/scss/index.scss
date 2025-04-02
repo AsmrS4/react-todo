@@ -1,0 +1,97 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'sans-serif';
+    height: auto;
+    background-color: $dark-bg-color;
+}
+
+main.todo__app {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    box-sizing: border-box;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: inherit;
+    @include flex-column();
+    @include column-centered();
+}
+
+.wrapper {
+    width: 100%;
+    height: auto;
+    @include flex-column();
+    @include column-centered();
+    gap: 20px;
+}
+
+.wrapper.row {
+    width: 100%;
+    height: auto;
+    @include flex-row();
+    align-items: start;
+    justify-content: space-between;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+div.wrapper-column {
+    width: 440px;
+    box-sizing: border-box;
+    height: auto;
+    @include flex-column();
+    @include column-centered();
+    gap: 20px;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+    label {
+        color: #fff;
+    }
+    div {
+        color: #fff;
+    }
+    fieldset {
+        border: 1px solid #3f3f3f;
+    }
+    &:focus {
+        div {
+            input {
+                color: $white-color;
+            }
+        }
+    }
+}
+
+.button {
+    background-color: $white-color !important;
+    border: none !important;
+    color: #3f3f3f !important;
+    font-weight: 500;
+    height: 36px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: #fff;
+
+    transition: background-color 5000s ease-in-out 0s;
+}

@@ -14,13 +14,20 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl":".",
+    "paths" : {
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "styles/*":["styles/*"],
+      
+    },
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
   },
   "include": ["src"]
 }
