@@ -28,8 +28,10 @@
         }
         .filters-wrapper {
             @include flex-column();
-            @include column-centered();
+            align-items: start;
+            justify-content: space-between;
             width: 100%;
+            gap: 16px;
         }
     }
 }

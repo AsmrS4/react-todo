@@ -7,6 +7,7 @@
     box-sizing: border-box;
     @include flex-column();
     @include all-centered();
+    height: auto;
     .todo__list::-webkit-scrollbar {
         display: none;
     }
@@ -203,6 +204,20 @@
             &:hover {
                 box-shadow: 0px 0px 4px 1px rgba(34, 60, 80, 0.3);
             }
+        }
+    }
+
+    .empty__todos {
+        height: 350px;
+        width: 100%;
+        @include flex-column();
+        @include all-centered();
+        border-radius: 8px;
+        background-color: $dark-grey-color;
+        .empty__label {
+            font-size: 24px;
+            font-weight: 500;
+            color: $soft-white-color;
         }
     }
 }
