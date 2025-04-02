@@ -2,6 +2,8 @@ import { Chip, ListItem, Typography, IconButton } from '@mui/material';
 import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import './style.scss';
+
 interface TodoProps {
     id: string;
     title: string;
@@ -14,7 +16,10 @@ interface TodoProps {
 const TodoItem = ({ id, title, text, deadlineAt, status, completed }: TodoProps) => {
     return (
         <>
-            <ListItem key={id} className={completed ? 'todo__item --completed-item' : 'todo__item'}>
+            <ListItem
+                key={id}
+                className={completed ? 'todo__item --completed-item' : 'todo__item '}
+            >
                 <div className='head-wrapper'>
                     <Typography className='item__title'>{title}</Typography>
                     <Chip size='small' label={status}></Chip>
@@ -24,8 +29,12 @@ const TodoItem = ({ id, title, text, deadlineAt, status, completed }: TodoProps)
                 </div>
                 <div className='item__footer'>
                     <div className='date-wrapper'>
-                        <RunningWithErrorsIcon sx={{ height: '14px', width: '14px' }} />
-                        <h6>{deadlineAt}</h6>
+                        {deadlineAt && (
+                            <>
+                                <RunningWithErrorsIcon sx={{ height: '14px', width: '14px' }} />
+                                <h6>{deadlineAt}</h6>
+                            </>
+                        )}
                     </div>
                     <div className='buttons-wrapper'>
                         <IconButton

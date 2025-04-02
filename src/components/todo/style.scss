@@ -88,12 +88,14 @@
     }
 
     &.--overdued {
-        background-color: #ffcc99;
+        border: 1px solid #ff944d !important;
+        background-color: inherit !important;
+
         .head-wrapper {
             .item__title {
                 background-color: inherit;
                 font-size: 18px;
-                color: $dark-grey-color;
+                color: $soft-white-color !important;
             }
             div {
                 background-color: inherit;
@@ -107,8 +109,8 @@
         .item__inner-wrapper {
             .item__text {
                 padding: 4px 12px;
-                background-color: #ffbe7d;
-                color: $dark-grey-color;
+                background-color: inherit !important;
+                color: $soft-white-color !important;
             }
         }
         .item__footer {
@@ -118,12 +120,14 @@
         }
     }
     &.--late {
-        background-color: rgb(255, 177, 177);
+        border: 1px solid #d43c3c !important;
+        background-color: inherit !important;
+
         .head-wrapper {
             .item__title {
                 background-color: inherit;
                 font-size: 18px;
-                color: $dark-grey-color;
+                color: $soft-white-color !important;
             }
             div {
                 background-color: inherit;
@@ -137,8 +141,8 @@
         .item__inner-wrapper {
             .item__text {
                 padding: 4px 12px;
-                background-color: #ff9898;
-                color: $dark-grey-color;
+                background-color: inherit !important;
+                color: $soft-white-color !important;
             }
         }
         .item__footer {
