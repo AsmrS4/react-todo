@@ -5,6 +5,7 @@ import Filters from '../components/filter';
 import TodoList from '../components/list';
 import TodoHeader from '../components/header';
 import todoViewModel from '../store/TodoViewModel';
+import { CreateModal } from '../components/modal/CreateModal';
 
 const Main = observer(() => {
     return (
@@ -18,13 +19,20 @@ const Main = observer(() => {
                         </div>
                         <div className='wrapper-column'>
                             <Filters />
-                            <Button variant='outlined' sx={{ width: 1 }}>
-                                Новая задача
+                            <Button
+                                className='button'
+                                sx={{ width: '92%' }}
+                                onClick={() => {
+                                    todoViewModel.openModal();
+                                }}
+                            >
+                                Новая задача +
                             </Button>
                         </div>
                     </div>
                 </div>
             </main>
+            <CreateModal />
         </>
     );
 });

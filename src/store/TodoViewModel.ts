@@ -5,29 +5,31 @@ import {makeAutoObservable, runInAction} from 'mobx';
 class TodoViewModel implements ITodoViewModel {
     
     todos: Array<any> = [];
-    
+    isOpen: boolean;
+
     constructor() {
         makeAutoObservable(this);
         this.getAll({});
+        this.isOpen = false;
     }
 
-    addTodo = async(todo: any): Promise<void> =>{
+    public addTodo = async(todo: any): Promise<void> =>{
         
     }
 
-    deleteTodo = async(id: string): Promise<void> =>{
+    public deleteTodo = async(id: string): Promise<void> =>{
         
     }
 
-    editTodo = async(id: string): Promise<void> =>{
+    public editTodo = async(id: string): Promise<void> =>{
         
     }
 
-    getTodo = async(id: string): Promise<Object> => {
+    public getTodo = async(id: string): Promise<Object> => {
         return new Object
     }
 
-    getAll = async(params?: Object | null): Promise<void> => {
+    public getAll = async(params?: Object | null): Promise<void> => {
         try {
             const result: Array<any> = await fetchTodos(params||{});
             console.log(result);
@@ -38,7 +40,14 @@ class TodoViewModel implements ITodoViewModel {
             
         }
     }
-    
+
+    public openModal = () => {
+        this.isOpen = true;
+    }
+
+    public closeModal = () => {
+        this.isOpen = false;
+    }
     
 }
 
