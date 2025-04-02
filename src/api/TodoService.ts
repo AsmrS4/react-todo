@@ -33,3 +33,9 @@ export const createTodo = async(todo : TodoBody) => {
     .then(response => response.data)
     .catch(error => {throw new Error('Запрос с ошибкой: ' + error)});
 }
+
+export const deleteTodo = async(todoId: string) => {
+    axios.delete(`${import.meta.env}/task/delete${todoId}`)
+    .then(response => response.data)
+    .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
+}
