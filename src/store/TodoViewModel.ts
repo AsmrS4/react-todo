@@ -1,4 +1,5 @@
-import { fetchTodos } from "../api/TodoService";
+import { TodoDto } from "src/dto/todo/TodoDto";
+import { createTodo, deleteTodo, fetchTodos } from "../api/TodoService";
 import ITodoViewModel from "./ITodoViewModel";
 import {makeAutoObservable, runInAction} from 'mobx';
 
@@ -13,11 +14,27 @@ class TodoViewModel implements ITodoViewModel {
         this.isOpen = false;
     }
 
-    public addTodo = async(todo: any): Promise<void> =>{
-        
+    public addTodo = async(todo: TodoDto): Promise<void> =>{
+        try {
+            await createTodo(todo);
+            console.log('asdas')
+            runInAction(async()=> {
+                await this.getAll();
+            })
+        } catch (error) {
+            
+        }
     }
 
     public deleteTodo = async(id: string): Promise<void> =>{
+        try {
+            await deleteTodo(id);
+            runInAction(()=> {
+                this.todos = this.todos.filter(todo => todo.id !== id);
+            })
+        } catch (error) {
+            
+        }
         
     }
 
@@ -32,7 +49,6 @@ class TodoViewModel implements ITodoViewModel {
     public getAll = async(params?: Object | null): Promise<void> => {
         try {
             const result: Array<any> = await fetchTodos(params||{});
-            console.log(result);
             runInAction(()=> {
                 this.todos = result;
             })

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TodoDto } from 'src/dto/todo/TodoDto';
 
 interface QueryParams {
     sorting?: string,
@@ -6,13 +7,6 @@ interface QueryParams {
     status?: string
 }
 
-interface TodoBody {
-    title: string;
-    text?: string;
-    deadlineAt?: string;
-    status: string;
-    completed: boolean;
-}
 
 export const fetchTodos = async(params : QueryParams) : Promise<any> =>  {
     return await axios.get(`${import.meta.env.VITE_APP_API}/api/task`, {
@@ -24,18 +18,16 @@ export const fetchTodos = async(params : QueryParams) : Promise<any> =>  {
     .catch(error => {throw new Error('Запрос с ошибкой: ' + error)});
 } 
 
-export const createTodo = async(todo : TodoBody) => {
-    axios.post(`${import.meta.env}/task/create`, {
-        data: {
-            ...todo
-        }
+export const createTodo = async(todo : TodoDto) => {
+    axios.post(`${import.meta.env.VITE_APP_API}/api/task/new`, {
+        ...todo
     })
     .then(response => response.data)
     .catch(error => {throw new Error('Запрос с ошибкой: ' + error)});
 }
 
 export const deleteTodo = async(todoId: string) => {
-    axios.delete(`${import.meta.env}/task/delete${todoId}`)
+    axios.delete(`${import.meta.env.VITE_APP_API}/api/task/delete/${todoId}`)
     .then(response => response.data)
     .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
 }

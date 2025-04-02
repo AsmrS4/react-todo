@@ -3,12 +3,14 @@ import { List } from '@mui/material';
 
 import './styles.scss';
 import TodoItem from '../todo';
+import { useEffect } from 'react';
 
 interface TodoListProps {
     todos: Array<any>;
 }
 
 const TodoList = observer(({ todos = [] }: TodoListProps) => {
+    useEffect(() => {}, [todos]);
     return (
         <>
             <section className='todo__body '>
