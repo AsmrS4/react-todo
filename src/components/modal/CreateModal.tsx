@@ -8,7 +8,7 @@ import todoViewModel from '../../store/TodoViewModel';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
 import { useInput } from '../../hooks/useInput.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectInput from '../select/index.tsx';
 
 import './styles.scss';
@@ -16,13 +16,36 @@ import './styles.scss';
 export const CreateModal = observer(() => {
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
-    const [priority, setPriority] = useState(1);
+    const [priority, setPriority] = useState('1');
     const [deadlineAt, setDeadline] = useState(null);
+    const [isValid, setIsValid] = useState(false);
 
-    const handleClickOpen = () => {};
+    const validateForm = async () => {
+        return setIsValid(!title.minLengthError && title.value !== '');
+    };
+
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        await todoViewModel.addTodo({
+            title: title.value,
+            text: text,
+            priority: priority,
+            deadline: deadlineAt,
+        });
+        title.setValue('');
+        setDeadline(null);
+        setPriority('1');
+        setText('');
+        handleClose();
+    };
+
     const handleClose = () => {
         todoViewModel.closeModal();
     };
+
+    useEffect(() => {
+        validateForm();
+    }, [title.value]);
 
     return (
         <>
@@ -40,7 +63,7 @@ export const CreateModal = observer(() => {
                     }}
                 >
                     <DialogContentText>
-                        <form className='modal-form' action=''>
+                        <form className='modal-form' action='' onSubmit={handleSubmit}>
                             <TextField
                                 sx={{ width: 1, color: '#fff' }}
                                 label={
@@ -79,7 +102,12 @@ export const CreateModal = observer(() => {
                     <Button className='button' onClick={handleClose}>
                         {'Отмена'}
                     </Button>
-                    <Button className='button' onClick={handleClose}>
+                    <Button
+                        className='button'
+                        type='submit'
+                        disabled={!isValid}
+                        onClick={handleSubmit}
+                    >
                         {'Создать'}
                     </Button>
                 </DialogActions>
