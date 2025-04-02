@@ -2,22 +2,19 @@
 @import 'styles/mixins.scss';
 
 .todo__body {
+    margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
     @include flex-column();
     @include all-centered();
+    height: auto;
     .todo__list::-webkit-scrollbar {
         display: none;
     }
-    .todo__list-header {
-        color: $soft-white-color;
-        width: 100%;
-        box-sizing: border-box;
-        padding-left: 16px;
-    }
+
     .todo__list {
         width: 100%;
-        max-width: 800px;
+        max-width: 900px;
         @include flex-column();
         @include column-centered();
         gap: 8px;
@@ -207,6 +204,20 @@
             &:hover {
                 box-shadow: 0px 0px 4px 1px rgba(34, 60, 80, 0.3);
             }
+        }
+    }
+
+    .empty__todos {
+        height: 350px;
+        width: 100%;
+        @include flex-column();
+        @include all-centered();
+        border-radius: 8px;
+        background-color: $dark-grey-color;
+        .empty__label {
+            font-size: 24px;
+            font-weight: 500;
+            color: $soft-white-color;
         }
     }
 }
