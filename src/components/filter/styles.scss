@@ -11,7 +11,7 @@
     @include flex-column();
     @include all-centered();
     border: 1px solid #3f3f3f;
-    margin-top: 59px;
+    margin-top: 10px;
     background-color: $dark-grey-color;
 
     .filter {
@@ -28,8 +28,10 @@
         }
         .filters-wrapper {
             @include flex-column();
-            @include column-centered();
+            align-items: start;
+            justify-content: space-between;
             width: 100%;
+            gap: 16px;
         }
     }
 }

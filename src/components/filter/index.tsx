@@ -14,7 +14,7 @@ const Filters = () => {
                         <SelectInput label='Задачи' options={[]} />
                         <SelectInput label='Сортировать' options={[]} />
                     </div>
-                    <Button sx={{ width: 1 }} variant='outlined'>
+                    <Button className='button' sx={{ width: 1 }} variant='outlined'>
                         Применить
                     </Button>
                 </section>
