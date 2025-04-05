@@ -9,13 +9,15 @@ import './styles.scss';
 interface SelectProps {
     label: string;
     options: Array<any>;
+    setter: any;
 }
 
-export default function SelectInput({ label, options }: SelectProps) {
-    const [todoStatus, setStatus] = useState('all');
+export default function SelectInput({ label, options, setter }: SelectProps) {
+    const [selected, setSelected] = useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
-        setStatus(event.target.value);
+        setSelected(event.target.value);
+        setter(event.target.value);
     };
 
     return (
@@ -28,14 +30,16 @@ export default function SelectInput({ label, options }: SelectProps) {
             <InputLabel id='demo-select-small-label'>{label}</InputLabel>
             <Select
                 labelId='demo-select-small-label'
-                value={todoStatus}
+                value={selected}
                 label={label}
                 onChange={handleChange}
                 sx={{ color: '#fff' }}
             >
-                <MenuItem value={'all'}>{'Показать все'}</MenuItem>
-                <MenuItem value={'completed'}>{'Выполненные'}</MenuItem>
-                <MenuItem value={'active'}>{'Активные'}</MenuItem>
+                {options.map((item, index) => (
+                    <MenuItem key={index} value={item[0]}>
+                        {item[1]}
+                    </MenuItem>
+                ))}
             </Select>
         </FormControl>
     );
