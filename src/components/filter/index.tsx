@@ -9,11 +9,7 @@ const Filters = () => {
     const [priority, setPriority] = useState('ASC');
     const [checked, setChecked] = useState(false);
 
-    useEffect(() => {
-        console.log(sorting);
-        console.log(priority);
-        console.log(checked);
-    }, [sorting, priority, checked]);
+    const handleApply = () => {};
 
     return (
         <>
