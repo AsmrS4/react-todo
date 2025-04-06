@@ -3,17 +3,24 @@ import TodoService from "../api/TodoService";
 import ITodoViewModel from "./ITodoViewModel";
 import {makeAutoObservable, runInAction} from 'mobx';
 
+interface EditParams {
+    text?: string,
+    title:string,
+    priority:number|string,
+    deadline_at?:string,
+    completed: boolean
+}
+
 class TodoViewModel implements ITodoViewModel {
     todoService: TodoService = new TodoService();
     todos: Array<any> = [];
     isOpen: boolean;
-    isEditOpen: boolean;
+    todo:any;
 
     constructor() {
         makeAutoObservable(this);
         this.getAll({});
         this.isOpen = false;
-        this.isEditOpen = false;
     }
 
     public addTodo = async(todo: TodoDto): Promise<void> =>{
@@ -39,16 +46,22 @@ class TodoViewModel implements ITodoViewModel {
         
     }
 
-    public editTodo = async(id: string): Promise<void> =>{
-        
+    public editTodo = async(id: string, newTodo:EditParams): Promise<void> =>{
+        console.log(newTodo)
+        try {
+            await this.todoService.editTodo(id, newTodo);
+            runInAction(async()=> {
+                await this.getAll()
+            })
+        } catch (error) {
+            
+        }
     }
 
-    public getTodo = async(id: string): Promise<any> => {
+
+    public getTodo = async(id:string): Promise<any> => {
         try {
-            const result = await this.todoService.getTodoById(id);
-            runInAction(()=> {
-                return result;
-            })
+            return await this.todoService.getTodoById(id);
         } catch (error) {
             
         }
@@ -65,22 +78,13 @@ class TodoViewModel implements ITodoViewModel {
         }
     }
 
-    public openEditModal = () => {
-        this.isEditOpen = true;
-    }
-
-    public closeEditModal = () => {
-        this.isEditOpen = false;
-    }
-
-    public openModal = () => {
+    public openModal = async() => {
         this.isOpen = true;
     }
 
-    public closeModal = () => {
+    public closeModal = async() => {
         this.isOpen = false;
-    }
-    
+    }   
 }
 
 const todoViewModel = new TodoViewModel()

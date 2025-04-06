@@ -13,13 +13,28 @@ import DateSelect from '../date/DateSelect.tsx';
 import SelectInput from '../select/index.tsx';
 import { useInput } from '../../hooks/useInput.ts';
 import todoViewModel from '../../store/TodoViewModel';
+import CustomSwitch from '../switch/TodoSwitch.tsx';
 
-export const EditModal = observer(() => {
+interface EditParams {
+    isOpen: boolean;
+    setter: any;
+    id: string;
+}
+
+export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
+    const [details, setDetails] = useState({
+        title: '',
+        text: '',
+        priority: '',
+        deadline_at: '',
+        completed: false,
+    });
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
-    const [priority, setPriority] = useState('3');
-    const [deadlineAt, setDeadline] = useState(null);
+    const [priority, setPriority] = useState('');
+    const [deadlineAt, setDeadline] = useState('');
     const [isValid, setIsValid] = useState(false);
+    const [completed, setCompleted] = useState(false);
 
     const validateForm = async () => {
         return setIsValid(!title.minLengthError && title.value !== '');
@@ -28,15 +43,18 @@ export const EditModal = observer(() => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
-        title.setValue('');
-        setDeadline(null);
-        setPriority(priority);
-        setText('');
+        await todoViewModel.editTodo(id, {
+            title: title.value,
+            text: text,
+            priority: priority,
+            deadline_at: deadlineAt,
+            completed: completed,
+        });
         handleClose();
     };
 
     const handleClose = () => {
-        todoViewModel.closeEditModal();
+        setter(false);
     };
 
     useEffect(() => {
@@ -44,17 +62,22 @@ export const EditModal = observer(() => {
     }, [title.value]);
 
     useEffect(() => {
-        todoViewModel.getTodo;
-    });
+        (async () => {
+            setDetails(await todoViewModel.getTodo(id));
+        })();
+    }, []);
+
+    useEffect(() => {
+        title.setValue(details.title);
+        setText(details.text);
+        setPriority(details.priority);
+        setCompleted(details.completed);
+        setDeadline(details.deadline_at);
+    }, [details]);
 
     return (
         <>
-            <Dialog
-                sx={{ height: 'auto' }}
-                open={todoViewModel.isEditOpen}
-                onClose={handleClose}
-                component={'span'}
-            >
+            <Dialog sx={{ height: 'auto' }} open={isOpen} onClose={handleClose} component={'span'}>
                 <DialogTitle sx={{ color: '#fff', backgroundColor: '#222222', border: 'none' }}>
                     {'Редактирование задачи'}
                 </DialogTitle>
@@ -93,21 +116,29 @@ export const EditModal = observer(() => {
                                     setText(e.target.value);
                                 }}
                             />
-                            <SelectInput
-                                label={'Приоритет'}
-                                options={[
-                                    ['4', 'Низкий(Low)'],
-                                    ['3', 'Средний(Medium)'],
-                                    ['2', 'Высокий(High)'],
-                                    ['1', 'Критический(Critical)'],
-                                ]}
-                                setter={setPriority}
-                            />
-                            <DateSelect
-                                sx={{ marginX: '0', width: '100%' }}
-                                date={deadlineAt || ''}
-                                setter={setDeadline}
-                                label={'Дедлайн'}
+                            <div className='row-wrapper'>
+                                <SelectInput
+                                    label={'Приоритет'}
+                                    value={priority}
+                                    options={[
+                                        ['4', 'Низкий(Low)'],
+                                        ['3', 'Средний(Medium)'],
+                                        ['2', 'Высокий(High)'],
+                                        ['1', 'Критический(Critical)'],
+                                    ]}
+                                    setter={setPriority}
+                                />
+                                <DateSelect
+                                    sx={{ marginX: '0', width: '100%' }}
+                                    date={deadlineAt || ''}
+                                    setter={setDeadline}
+                                    label={'Дедлайн'}
+                                />
+                            </div>
+                            <CustomSwitch
+                                label='Выполнено'
+                                initialValue={completed}
+                                setter={setCompleted}
                             />
                         </form>
                     </DialogContentText>

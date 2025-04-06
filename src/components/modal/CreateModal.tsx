@@ -91,6 +91,7 @@ export const CreateModal = observer(() => {
                             <div className='row-wrapper'>
                                 <SelectInput
                                     label={'Приоритет'}
+                                    value={''}
                                     options={[
                                         ['4', 'Низкий(Low)'],
                                         ['3', 'Средний(Medium)'],

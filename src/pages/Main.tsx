@@ -34,7 +34,6 @@ const Main = observer(() => {
                 </div>
             </main>
             <CreateModal />
-            <EditModal />
         </>
     );
 });

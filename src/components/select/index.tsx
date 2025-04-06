@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -9,13 +9,12 @@ import './styles.scss';
 interface SelectProps {
     label: string;
     options: Array<any>;
-
+    value: any;
     setter: any;
 }
 
-export default function SelectInput({ label, options, setter }: SelectProps) {
-    const [selected, setSelected] = useState('');
-
+export default function SelectInput({ label, value, options, setter }: SelectProps) {
+    const [selected, setSelected] = useState(value);
     const handleChange = (event: SelectChangeEvent) => {
         setSelected(event.target.value);
         setter(event.target.value);

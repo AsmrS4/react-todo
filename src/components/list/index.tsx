@@ -16,8 +16,8 @@ const TodoList = observer(({ todos = [] }: TodoListProps) => {
             <section className='todo__body '>
                 {todos.length > 0 ? (
                     <List className='todo__list'>
-                        {todos.map((todo) => {
-                            return <TodoItem key={todo.id} {...todo} />;
+                        {todos.map((todo, index) => {
+                            return <TodoItem key={todo.id} {...todo} index={++index} />;
                         })}
                     </List>
                 ) : (

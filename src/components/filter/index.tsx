@@ -21,6 +21,7 @@ const Filters = () => {
                     <div className='filters-wrapper'>
                         <SelectInput
                             label='Сортировать'
+                            value={sorting}
                             options={[
                                 ['ASC', 'По дате(возр.)'],
                                 ['DESC', 'По дате(убыв.)'],
@@ -29,6 +30,7 @@ const Filters = () => {
                         />
                         <SelectInput
                             label='Важность'
+                            value={priority}
                             options={[
                                 ['ASC', 'Low -> Critical(возр.)'],
                                 ['DESC', 'Critical -> Low(убыв.)'],
@@ -36,7 +38,11 @@ const Filters = () => {
                             setter={setPriority}
                         />
                     </div>
-                    <CustomSwitch initialValue={checked} setter={setChecked} />
+                    <CustomSwitch
+                        label={'Показать только активные'}
+                        initialValue={checked}
+                        setter={setChecked}
+                    />
                     <Button className='button' sx={{ width: 1 }} variant='outlined'>
                         Применить
                     </Button>

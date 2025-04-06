@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import './index.scss';
+import { useEffect, useState } from 'react';
 
 const TodoSwitch = styled((props: SwitchProps) => (
     <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
@@ -68,13 +69,14 @@ const TodoSwitch = styled((props: SwitchProps) => (
 }));
 
 interface CustomSwitchProps {
+    label: string;
     initialValue: boolean;
     setter: any;
 }
 
-export default function CustomSwitch({ initialValue, setter }: CustomSwitchProps) {
+export default function CustomSwitch({ label, initialValue, setter }: CustomSwitchProps) {
     const handleChange = () => {
-        setter(!initialValue);
+        setter((prev: boolean) => !prev);
     };
 
     return (
@@ -89,11 +91,11 @@ export default function CustomSwitch({ initialValue, setter }: CustomSwitchProps
                 boxSizing: 'border-box',
             }}
         >
-            <TodoSwitch value={initialValue} onChange={handleChange} />
+            <TodoSwitch value={initialValue} checked={initialValue} onChange={handleChange} />
             <Typography
                 className={initialValue ? 'switch-label-text checked' : 'switch-label-text'}
             >
-                Только активные
+                {label}
             </Typography>
         </Stack>
     );

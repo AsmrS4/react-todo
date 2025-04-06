@@ -33,14 +33,16 @@ class TodoService {
         .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
     }
 
-    public getTodoById = async(todoId: string) => {
-        axios.get(`${import.meta.env.VITE_APP_API}/api/task/${todoId}`)
-        .then( response => response.data)
+    public getTodoById = async(todoId: string|null) => {
+        return await axios.get(`${import.meta.env.VITE_APP_API}/api/task/${todoId}/get`)
+        .then((response) => response.data)
         .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
     }
 
     public editTodo = async(todoId: string, todoBody: Object) => {
-        axios.put(`${import.meta.env.VITE_APP_API}/api/task/edit/${todoId}`)
+        return axios.put(`${import.meta.env.VITE_APP_API}/api/task/edit/${todoId}`, {...todoBody})
+        .then((response) => {console.log(response.data)})
+        .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
     }
 }
 
