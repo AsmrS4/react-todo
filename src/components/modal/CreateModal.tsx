@@ -16,7 +16,7 @@ import './styles.scss';
 export const CreateModal = observer(() => {
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
-    const [priority, setPriority] = useState('1');
+    const [priority, setPriority] = useState('3');
     const [deadlineAt, setDeadline] = useState(null);
     const [isValid, setIsValid] = useState(false);
 
@@ -34,7 +34,7 @@ export const CreateModal = observer(() => {
         });
         title.setValue('');
         setDeadline(null);
-        setPriority('1');
+        setPriority(priority);
         setText('');
         handleClose();
     };
@@ -78,7 +78,16 @@ export const CreateModal = observer(() => {
                                 }}
                                 error={title.value != '' && title.minLengthError}
                             />
-                            <SelectInput label={'Приоритет'} options={[]} />
+                            <SelectInput
+                                label={'Приоритет'}
+                                options={[
+                                    ['4', 'Низкий(Low)'],
+                                    ['3', 'Средний(Medium)'],
+                                    ['2', 'Высокий(High)'],
+                                    ['1', 'Критический(Critical)'],
+                                ]}
+                                setter={setPriority}
+                            />
                             <TextField
                                 label={'Описание'}
                                 sx={{ width: 1 }}

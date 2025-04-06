@@ -21,7 +21,7 @@
 
         .item__title {
             background-color: inherit;
-            font-size: 18px;
+            font-size: 16px !important;
             color: $white-color;
         }
 
@@ -48,12 +48,13 @@
         gap: 8px;
 
         .item__text {
-            padding: 6px 12px;
+            padding: 12px;
             border-radius: 4px;
-            font-size: $default-size;
+            font-size: 18px !important;
             width: 100%;
             height: auto;
             color: $white-color;
+            background-color: #252525 !important;
             box-sizing: border-box;
             word-break: break-all;
         }
@@ -75,14 +76,18 @@
             }
         }
         .date-wrapper {
-            @include flex-row();
-            @include row-centered();
+            display: flex;
+            flex-direction: column !important;
+            align-items: start !important;
+            gap: 4px !important;
+            height: auto;
             margin-left: 4px;
             background-color: inherit;
             color: $white-color;
-            h6 {
+            span {
                 margin: 0;
-                margin-left: 4px;
+                margin-right: 8px;
+                font-size: 12px !important;
             }
         }
     }
@@ -109,13 +114,13 @@
         .item__inner-wrapper {
             .item__text {
                 padding: 4px 12px;
-                background-color: inherit !important;
+
                 color: $soft-white-color !important;
             }
         }
         .item__footer {
             .date-wrapper {
-                color: $dark-grey-color;
+                color: #ff944d !important;
             }
         }
     }
@@ -141,13 +146,13 @@
         .item__inner-wrapper {
             .item__text {
                 padding: 4px 12px;
-                background-color: inherit !important;
+
                 color: $soft-white-color !important;
             }
         }
         .item__footer {
             .date-wrapper {
-                color: $dark-grey-color;
+                color: #d43c3c !important;
             }
         }
     }
