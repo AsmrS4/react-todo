@@ -1,35 +1,36 @@
-screenTop
-export const transformDate = (date: string) => {
-    return date.slice(0,10)
-    .split('-')
-    .reverse()
-    .join('/');
-}
+export class DateUtils {
+    
+    public static transformDate = (date: string) : string =>{
+        return date.slice(0,10)
+        .split('-')
+        .reverse()
+        .join('/');
+    }
 
-export const transformDateToISO = (date:string) => {
-    return date.split('/')
-    .reverse()
-    .join('-');
-}
+    public static transformDateToISO = (date:string) : string =>{
+        return date.split('/')
+        .reverse()
+        .join('-');
+    }
 
+    private static transformDateToMillis =(dateStr: string) : number => {
+        let str = DateUtils.transformDateToISO(dateStr);
+        let date = Date.parse(str);
+        return date;
+    }
 
-export const getDate =(dateStr:string) => {
-    let str = transformDateToISO(dateStr);
-    let date = Date.parse(str);
-    return date;
-}
-export const getToday = () => {
-    let today = new Date();
-    return transformDate(today.toISOString());
-}
+    private static getToday = () : string=> {
+        let today = new Date();
+        return DateUtils.transformDate(today.toISOString());
+    }
 
-export const getOverduedDate = () => {
-    let today = new Date();
-    today.setDate(today.getDate() + 3);
-    return transformDate(today.toISOString());
-}
+    public static isLateTask = (deadline: string): boolean => {
+        let now = DateUtils.getToday();
+        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) < 0;
+    }
 
-export const isOverduedTask = (date:string) => {
-    let now = getToday();
-
+    public static isOverduedTask = (deadline: string): boolean => {
+        let now = DateUtils.getToday();
+        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <=  259200000 && DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) >= 0;
+    }
 }

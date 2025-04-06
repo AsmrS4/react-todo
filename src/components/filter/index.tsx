@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import SelectInput from '../select';
 import './styles.scss';
 import CustomSwitch from '../switch/TodoSwitch';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 const Filters = () => {
     const [sorting, setSorting] = useState('ASC');
