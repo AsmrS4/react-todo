@@ -79,6 +79,12 @@ div.wrapper-column {
     color: #3f3f3f !important;
     font-weight: 500;
     height: 36px;
+    cursor: pointer !important;
+    &:disabled {
+        background-color: #555555 !important;
+        color: #232323 !important;
+        cursor: not-allowed !important;
+    }
 }
 
 input:-webkit-autofill,

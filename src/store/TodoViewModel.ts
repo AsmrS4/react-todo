@@ -4,21 +4,21 @@ import ITodoViewModel from "./ITodoViewModel";
 import {makeAutoObservable, runInAction} from 'mobx';
 
 class TodoViewModel implements ITodoViewModel {
-    private todoService: TodoService;
+    todoService: TodoService = new TodoService();
     todos: Array<any> = [];
     isOpen: boolean;
+    isEditOpen: boolean;
 
     constructor() {
         makeAutoObservable(this);
         this.getAll({});
         this.isOpen = false;
-        this.todoService = new TodoService();
+        this.isEditOpen = false;
     }
 
     public addTodo = async(todo: TodoDto): Promise<void> =>{
         try {
             await this.todoService.createTodo(todo);
-            console.log('asdas')
             runInAction(async()=> {
                 await this.getAll();
             })
@@ -43,8 +43,15 @@ class TodoViewModel implements ITodoViewModel {
         
     }
 
-    public getTodo = async(id: string): Promise<Object> => {
-        return new Object
+    public getTodo = async(id: string): Promise<any> => {
+        try {
+            const result = await this.todoService.getTodoById(id);
+            runInAction(()=> {
+                return result;
+            })
+        } catch (error) {
+            
+        }
     }
 
     public getAll = async(params?: Object | null): Promise<void> => {
@@ -56,6 +63,14 @@ class TodoViewModel implements ITodoViewModel {
         } catch (error) {
             
         }
+    }
+
+    public openEditModal = () => {
+        this.isEditOpen = true;
+    }
+
+    public closeEditModal = () => {
+        this.isEditOpen = false;
     }
 
     public openModal = () => {

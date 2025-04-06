@@ -6,6 +6,7 @@ import TodoList from '../components/list';
 import TodoHeader from '../components/header';
 import todoViewModel from '../store/TodoViewModel';
 import { CreateModal } from '../components/modal/CreateModal';
+import { EditModal } from '../components/modal/EditModal';
 
 const Main = observer(() => {
     return (
@@ -33,6 +34,7 @@ const Main = observer(() => {
                 </div>
             </main>
             <CreateModal />
+            <EditModal />
         </>
     );
 });

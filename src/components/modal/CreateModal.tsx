@@ -10,7 +10,7 @@ import { TextField } from '@mui/material';
 import { useInput } from '../../hooks/useInput.ts';
 import { useEffect, useState } from 'react';
 import SelectInput from '../select/index.tsx';
-
+import DateSelect from '../date/DateSelect.tsx';
 import './styles.scss';
 
 export const CreateModal = observer(() => {
@@ -55,8 +55,7 @@ export const CreateModal = observer(() => {
                 </DialogTitle>
                 <DialogContent
                     sx={{
-                        maxHeight: '500px',
-                        height: '240px',
+                        height: 'auto',
                         width: '600px',
                         boxSizing: 'border-box',
                         backgroundColor: '#222222',
@@ -78,16 +77,6 @@ export const CreateModal = observer(() => {
                                 }}
                                 error={title.value != '' && title.minLengthError}
                             />
-                            <SelectInput
-                                label={'Приоритет'}
-                                options={[
-                                    ['4', 'Низкий(Low)'],
-                                    ['3', 'Средний(Medium)'],
-                                    ['2', 'Высокий(High)'],
-                                    ['1', 'Критический(Critical)'],
-                                ]}
-                                setter={setPriority}
-                            />
                             <TextField
                                 label={'Описание'}
                                 sx={{ width: 1 }}
@@ -97,6 +86,24 @@ export const CreateModal = observer(() => {
                                     setText(e.target.value);
                                 }}
                             />
+                            <div className='row-wrapper'>
+                                <SelectInput
+                                    label={'Приоритет'}
+                                    options={[
+                                        ['4', 'Низкий(Low)'],
+                                        ['3', 'Средний(Medium)'],
+                                        ['2', 'Высокий(High)'],
+                                        ['1', 'Критический(Critical)'],
+                                    ]}
+                                    setter={setPriority}
+                                />
+                                <DateSelect
+                                    sx={{ marginX: '0', width: '100%' }}
+                                    date={deadlineAt || ''}
+                                    setter={setDeadline}
+                                    label={'Дедлайн'}
+                                />
+                            </div>
                         </form>
                     </DialogContentText>
                 </DialogContent>
