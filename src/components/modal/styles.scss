@@ -4,9 +4,15 @@
 form.modal-form {
     @include flex-column();
     @include column-centered();
-    height: 100%;
-
+    height: auto;
     box-sizing: border-box;
     padding: 20px 0px 0px 0px;
     gap: 16px;
+}
+
+.row-wrapper {
+    @include flex-row();
+    @include row-centered();
+    width: 100%;
+    gap: 10px;
 }
