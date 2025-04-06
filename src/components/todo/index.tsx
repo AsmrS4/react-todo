@@ -58,7 +58,7 @@ const TodoItem = observer(
                     <div className='item__footer'>
                         <div className='date-wrapper'>
                             <span>
-                                {'Приоритет: ' + (taskPriority[priority] || taskPriority[2])}
+                                {'Приоритет: ' + (taskPriority[--priority] || taskPriority[2])}
                             </span>
                             <span>
                                 {'Дедлайн: ' +
