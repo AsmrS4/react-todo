@@ -1,5 +1,4 @@
 import { Chip, ListItem, Typography, IconButton } from '@mui/material';
-import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import './style.scss';
@@ -58,11 +57,11 @@ const TodoItem = observer(
                     <div className='item__footer'>
                         <div className='date-wrapper'>
                             <span>
-                                {'Приоритет: ' + (taskPriority[priority] || taskPriority[2])}
+                                {'Приоритет: ' + (taskPriority[--priority] || taskPriority[2])}
                             </span>
                             <span>
                                 {'Дедлайн: ' +
-                                    (deadline_at ? DateUtils.transformDate(deadline_at) : 'нет')}
+                                    (deadline_at ? DateUtils.transformDate(deadline_at) : '--')}
                             </span>
                         </div>
                         <div className='buttons-wrapper'>
@@ -73,6 +72,9 @@ const TodoItem = observer(
                                     '&:hover': {
                                         backgroundColor: '#ffcc00',
                                     },
+                                }}
+                                onClick={() => {
+                                    todoViewModel.openEditModal();
                                 }}
                                 size='small'
                             >

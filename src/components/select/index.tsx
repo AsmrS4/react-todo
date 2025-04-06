@@ -9,6 +9,7 @@ import './styles.scss';
 interface SelectProps {
     label: string;
     options: Array<any>;
+
     setter: any;
 }
 
@@ -24,7 +25,7 @@ export default function SelectInput({ label, options, setter }: SelectProps) {
         <FormControl
             className='custom-select'
             sx={{ width: 1, color: '#fff' }}
-            size='small'
+            size={'medium'}
             component={'span'}
         >
             <InputLabel id='demo-select-small-label'>{label}</InputLabel>

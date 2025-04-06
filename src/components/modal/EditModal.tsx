@@ -9,13 +9,12 @@ import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import './styles.scss';
-import todoViewModel from '../../store/TodoViewModel';
-import { useInput } from '../../hooks/useInput.ts';
-import { DateUtils } from '../../utils.ts';
-import SelectInput from '../select/index.tsx';
 import DateSelect from '../date/DateSelect.tsx';
+import SelectInput from '../select/index.tsx';
+import { useInput } from '../../hooks/useInput.ts';
+import todoViewModel from '../../store/TodoViewModel';
 
-export const CreateModal = observer(() => {
+export const EditModal = observer(() => {
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
     const [priority, setPriority] = useState('3');
@@ -28,12 +27,7 @@ export const CreateModal = observer(() => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await todoViewModel.addTodo({
-            title: title.value,
-            text: text,
-            priority: priority,
-            deadline: DateUtils.transformToJSON(deadlineAt || '') || null,
-        });
+
         title.setValue('');
         setDeadline(null);
         setPriority(priority);
@@ -42,22 +36,32 @@ export const CreateModal = observer(() => {
     };
 
     const handleClose = () => {
-        todoViewModel.closeModal();
+        todoViewModel.closeEditModal();
     };
 
     useEffect(() => {
         validateForm();
     }, [title.value]);
 
+    useEffect(() => {
+        todoViewModel.getTodo;
+    });
+
     return (
         <>
-            <Dialog open={todoViewModel.isOpen} onClose={handleClose} component={'span'}>
+            <Dialog
+                sx={{ height: 'auto' }}
+                open={todoViewModel.isEditOpen}
+                onClose={handleClose}
+                component={'span'}
+            >
                 <DialogTitle sx={{ color: '#fff', backgroundColor: '#222222', border: 'none' }}>
-                    {'Новая задача'}
+                    {'Редактирование задачи'}
                 </DialogTitle>
                 <DialogContent
                     sx={{
-                        height: 'auto',
+                        maxHeight: '800px',
+                        height: '340px',
                         width: '600px',
                         boxSizing: 'border-box',
                         backgroundColor: '#222222',
@@ -79,6 +83,7 @@ export const CreateModal = observer(() => {
                                 }}
                                 error={title.value != '' && title.minLengthError}
                             />
+
                             <TextField
                                 label={'Описание'}
                                 sx={{ width: 1 }}
@@ -88,24 +93,22 @@ export const CreateModal = observer(() => {
                                     setText(e.target.value);
                                 }}
                             />
-                            <div className='row-wrapper'>
-                                <SelectInput
-                                    label={'Приоритет'}
-                                    options={[
-                                        ['4', 'Низкий(Low)'],
-                                        ['3', 'Средний(Medium)'],
-                                        ['2', 'Высокий(High)'],
-                                        ['1', 'Критический(Critical)'],
-                                    ]}
-                                    setter={setPriority}
-                                />
-                                <DateSelect
-                                    sx={{ marginX: '0', width: '100%' }}
-                                    date={deadlineAt || ''}
-                                    setter={setDeadline}
-                                    label={'Дедлайн'}
-                                />
-                            </div>
+                            <SelectInput
+                                label={'Приоритет'}
+                                options={[
+                                    ['4', 'Низкий(Low)'],
+                                    ['3', 'Средний(Medium)'],
+                                    ['2', 'Высокий(High)'],
+                                    ['1', 'Критический(Critical)'],
+                                ]}
+                                setter={setPriority}
+                            />
+                            <DateSelect
+                                sx={{ marginX: '0', width: '100%' }}
+                                date={deadlineAt || ''}
+                                setter={setDeadline}
+                                label={'Дедлайн'}
+                            />
                         </form>
                     </DialogContentText>
                 </DialogContent>
