@@ -1,5 +1,4 @@
 import { Chip, ListItem, Typography, IconButton } from '@mui/material';
-import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import './style.scss';
@@ -73,6 +72,9 @@ const TodoItem = observer(
                                     '&:hover': {
                                         backgroundColor: '#ffcc00',
                                     },
+                                }}
+                                onClick={() => {
+                                    todoViewModel.openEditModal();
                                 }}
                                 size='small'
                             >
