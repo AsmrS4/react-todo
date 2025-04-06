@@ -9,7 +9,7 @@ interface QueryParams {
 
 class TodoService {
 
-        public fetchTodos = async(params : QueryParams) : Promise<any> =>  {
+    public fetchTodos = async(params : QueryParams) : Promise<any> =>  {
         return await axios.get(`${import.meta.env.VITE_APP_API}/api/task`, {
             params: {
                 ...params
@@ -31,6 +31,16 @@ class TodoService {
         axios.delete(`${import.meta.env.VITE_APP_API}/api/task/delete/${todoId}`)
         .then(response => response.data)
         .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
+    }
+
+    public getTodoById = async(todoId: string) => {
+        axios.get(`${import.meta.env.VITE_APP_API}/api/task/${todoId}`)
+        .then( response => response.data)
+        .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
+    }
+
+    public editTodo = async(todoId: string, todoBody: Object) => {
+        axios.put(`${import.meta.env.VITE_APP_API}/api/task/edit/${todoId}`)
     }
 }
 
