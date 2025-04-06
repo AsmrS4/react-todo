@@ -4,15 +4,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import todoViewModel from '../../store/TodoViewModel';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
-import { useInput } from '../../hooks/useInput.ts';
 import { useEffect, useState } from 'react';
-import SelectInput from '../select/index.tsx';
 
 import './styles.scss';
 import DateSelect from '../date/DateSelect.tsx';
+import SelectInput from '../select/index.tsx';
+import { useInput } from '../../hooks/useInput.ts';
+import todoViewModel from '../../store/TodoViewModel';
 
 export const EditModal = observer(() => {
     const title = useInput('', { minLength: 6 });
@@ -83,6 +83,16 @@ export const EditModal = observer(() => {
                                 }}
                                 error={title.value != '' && title.minLengthError}
                             />
+
+                            <TextField
+                                label={'Описание'}
+                                sx={{ width: 1 }}
+                                value={text}
+                                size='medium'
+                                onChange={(e) => {
+                                    setText(e.target.value);
+                                }}
+                            />
                             <SelectInput
                                 label={'Приоритет'}
                                 options={[
@@ -92,15 +102,6 @@ export const EditModal = observer(() => {
                                     ['1', 'Критический(Critical)'],
                                 ]}
                                 setter={setPriority}
-                            />
-                            <TextField
-                                label={'Описание'}
-                                sx={{ width: 1 }}
-                                value={text}
-                                size='medium'
-                                onChange={(e) => {
-                                    setText(e.target.value);
-                                }}
                             />
                             <DateSelect
                                 sx={{ marginX: '0', width: '100%' }}

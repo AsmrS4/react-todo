@@ -2,5 +2,5 @@ export interface TodoDto {
     title: string;
     text?: string;
     priority: string;
-    deadline?: any;
+    deadline?: string | null;
 }

@@ -4,14 +4,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import todoViewModel from '../../store/TodoViewModel';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
-import { useInput } from '../../hooks/useInput.ts';
 import { useEffect, useState } from 'react';
+
+import './styles.scss';
+import todoViewModel from '../../store/TodoViewModel';
+import { useInput } from '../../hooks/useInput.ts';
+import { DateUtils } from '../../utils.ts';
 import SelectInput from '../select/index.tsx';
 import DateSelect from '../date/DateSelect.tsx';
-import './styles.scss';
 
 export const CreateModal = observer(() => {
     const title = useInput('', { minLength: 6 });
@@ -30,7 +32,7 @@ export const CreateModal = observer(() => {
             title: title.value,
             text: text,
             priority: priority,
-            deadline: deadlineAt,
+            deadline: DateUtils.transformToJSON(deadlineAt || '') || null,
         });
         title.setValue('');
         setDeadline(null);

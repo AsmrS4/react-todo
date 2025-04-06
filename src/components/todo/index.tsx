@@ -61,7 +61,7 @@ const TodoItem = observer(
                             </span>
                             <span>
                                 {'Дедлайн: ' +
-                                    (deadline_at ? DateUtils.transformDate(deadline_at) : 'нет')}
+                                    (deadline_at ? DateUtils.transformDate(deadline_at) : '--')}
                             </span>
                         </div>
                         <div className='buttons-wrapper'>
