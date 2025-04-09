@@ -37,7 +37,11 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
     const [completed, setCompleted] = useState(false);
 
     const validateForm = async () => {
-        return setIsValid(!title.minLengthError && title.value !== '');
+        return setIsValid(
+            (!title.minLengthError && title.value !== '') ||
+                completed !== null ||
+                deadlineAt !== null,
+        );
     };
 
     const handleSubmit = async (event: any) => {
@@ -59,7 +63,7 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
 
     useEffect(() => {
         validateForm();
-    }, [title.value]);
+    }, [title.value, completed, deadlineAt]);
 
     useEffect(() => {
         (async () => {

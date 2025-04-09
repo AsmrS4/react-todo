@@ -16,16 +16,22 @@ class TodoViewModel implements ITodoViewModel {
     todos: Array<any> = [];
     isOpen: boolean;
     todo:any;
+    private queryParams:Object={};
 
     constructor() {
         makeAutoObservable(this);
-        this.getAll({});
+        this.getAll();
         this.isOpen = false;
     }
     public setTodos(todos: Array<Object>) {
         this.todos = todos;
     }
-
+    public setQueryParams(params: Object) {
+        this.queryParams = params;
+        runInAction(async()=> {
+            await this.getAll();
+        })
+    }
     public addTodo = async(todo: TodoDto): Promise<void> =>{
         try {
             await this.todoService.createTodo(todo);
@@ -70,9 +76,9 @@ class TodoViewModel implements ITodoViewModel {
         }
     }
 
-    public getAll = async(params?: Object | null): Promise<void> => {
+    public getAll = async(): Promise<void> => {
         try {
-            const result: Array<any> = await this.todoService.fetchTodos(params||{});
+            const result: Array<any> = await this.todoService.fetchTodos(this.queryParams);
             runInAction(()=> {
                 this.todos = result;
                 this.todos.sort((a, b) => {

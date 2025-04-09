@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -14,9 +13,7 @@ interface SelectProps {
 }
 
 export default function SelectInput({ label, value, options, setter }: SelectProps) {
-    const [selected, setSelected] = useState(value);
     const handleChange = (event: SelectChangeEvent) => {
-        setSelected(event.target.value);
         setter(event.target.value);
     };
 
@@ -30,7 +27,7 @@ export default function SelectInput({ label, value, options, setter }: SelectPro
             <InputLabel id='demo-select-small-label'>{label}</InputLabel>
             <Select
                 labelId='demo-select-small-label'
-                value={selected}
+                value={value}
                 label={label}
                 onChange={handleChange}
                 sx={{ color: '#fff' }}
