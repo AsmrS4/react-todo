@@ -19,8 +19,6 @@ interface TodoProps {
     completed: boolean;
     index: number;
 }
-
-const taskPriority = ['критический', 'высокий', 'средний', 'низкий'];
 interface TaskStatus {
     active: string;
     overdued: string;
@@ -33,9 +31,10 @@ const taskStatuses: TaskStatus = {
     late: 'С опозданием',
     completed: 'Выполнена',
 };
+const taskPriority = ['критический', 'высокий', 'средний', 'низкий'];
 
 const TodoItem = observer(
-    ({ id, title, text, deadline_at, status, completed, priority, index }: TodoProps) => {
+    ({ id, title, text, deadline_at, completed, priority, index }: TodoProps) => {
         const [todoClassName, setClassName] = useState('todo__item');
         const [open, setOpen] = useState(false);
 
