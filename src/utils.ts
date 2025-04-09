@@ -17,7 +17,6 @@ export class DateUtils {
     public static transformToPicker = (date:string):string=> {
         return date
         .split('-')
-        .reverse()
         .join('.');
     }
 

@@ -16,7 +16,9 @@ interface DateParams {
 export default function DateSelect({ sx, date, setter, label = 'Дата подачи' }: DateParams) {
     const setNewDate = (e: any) => {
         let date = new Date(e).toLocaleDateString(e);
-        date = DateUtils.transformDateToISO(date);
+        console.log('1: ' + date);
+        date = DateUtils.transformToJSON(date);
+        console.log('2: ' + date);
         setter(date);
     };
     return (
@@ -24,6 +26,7 @@ export default function DateSelect({ sx, date, setter, label = 'Дата под�
             <DatePicker
                 label={label}
                 value={date ? dayjs(date) : null}
+                disablePast={true}
                 sx={sx}
                 onChange={(e) => setNewDate(e)}
                 slots={{ openPickerIcon: () => <CalendarIcon sx={{ color: '#4b4b4b' }} /> }}
