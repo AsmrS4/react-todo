@@ -56,7 +56,7 @@ const Filters = () => {
                         />
                     </div>
                     <CustomSwitch
-                        label={'Показать только активные'}
+                        label={'Показать невыполненные'}
                         initialValue={checked}
                         setter={setChecked}
                     />

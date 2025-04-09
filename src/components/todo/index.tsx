@@ -69,10 +69,12 @@ const TodoItem = observer(
                             size='small'
                             label={
                                 completed
-                                    ? taskStatuses['completed']
+                                    ? deadline_at && DateUtils.isLateTask(deadline_at)
+                                        ? taskStatuses['late']
+                                        : taskStatuses['completed']
                                     : deadline_at && DateUtils.isLateTask(deadline_at)
                                     ? taskStatuses['overdued']
-                                    : taskStatuses[status.toLocaleLowerCase() as keyof TaskStatus]
+                                    : taskStatuses['active']
                             }
                         ></Chip>
                     </div>
