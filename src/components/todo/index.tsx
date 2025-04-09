@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import todoViewModel from '../../store/TodoViewModel';
 import { useEffect, useState } from 'react';
 import { DateUtils } from '../../utils';
+import { EditModal } from '../modal/EditModal';
 
 interface TodoProps {
     id: string;
@@ -16,13 +17,27 @@ interface TodoProps {
     status: string;
     priority: number;
     completed: boolean;
+    index: number;
 }
 
 const taskPriority = ['критический', 'высокий', 'средний', 'низкий'];
+interface TaskStatus {
+    active: string;
+    overdued: string;
+    late: string;
+    completed: string;
+}
+const taskStatuses: TaskStatus = {
+    active: 'Активная',
+    overdued: 'Просрочена',
+    late: 'С опозданием',
+    completed: 'Выполнена',
+};
 
 const TodoItem = observer(
-    ({ id, title, text, deadline_at, status, completed, priority, created_at }: TodoProps) => {
+    ({ id, title, text, deadline_at, status, completed, priority, index }: TodoProps) => {
         const [todoClassName, setClassName] = useState('todo__item');
+        const [open, setOpen] = useState(false);
 
         const setTodoType = (deadline_at: string | null): void => {
             if (deadline_at) {
@@ -39,17 +54,29 @@ const TodoItem = observer(
 
         useEffect(() => {
             setTodoType(deadline_at || null);
-        }, []);
+        }, [deadline_at]);
 
         return (
             <>
+                <EditModal isOpen={open} setter={setOpen} id={id} />
                 <ListItem
                     key={id}
                     className={completed ? 'todo__item --completed-item' : todoClassName}
                 >
                     <div className='head-wrapper'>
-                        <Typography className='item__title'>{title}</Typography>
-                        <Chip size='small' label={status}></Chip>
+                        <Typography className='item__title'>{index + '. ' + title}</Typography>
+                        <Chip
+                            size='small'
+                            label={
+                                completed
+                                    ? deadline_at && DateUtils.isLateTask(deadline_at)
+                                        ? taskStatuses['late']
+                                        : taskStatuses['completed']
+                                    : deadline_at && DateUtils.isLateTask(deadline_at)
+                                    ? taskStatuses['overdued']
+                                    : taskStatuses['active']
+                            }
+                        ></Chip>
                     </div>
                     <div className='item__inner-wrapper'>
                         {text && <Typography className='item__text'>{text}</Typography>}
@@ -73,12 +100,15 @@ const TodoItem = observer(
                                         backgroundColor: '#ffcc00',
                                     },
                                 }}
-                                onClick={() => {
-                                    todoViewModel.openEditModal();
-                                }}
                                 size='small'
                             >
-                                <EditIcon sx={{ color: '#fff' }} fontSize='small' />
+                                <EditIcon
+                                    sx={{ color: '#fff' }}
+                                    fontSize='small'
+                                    onClick={() => {
+                                        setOpen(true);
+                                    }}
+                                />
                             </IconButton>
                             <IconButton
                                 sx={{

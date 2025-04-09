@@ -14,6 +14,12 @@ export class DateUtils {
         .join('-');
     }
 
+    public static transformToPicker = (date:string):string=> {
+        return date
+        .split('-')
+        .join('.');
+    }
+
     public static transformDateToISO = (date:string) : string =>{
         return date.split('/')
         .reverse()

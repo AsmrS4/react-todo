@@ -3,21 +3,31 @@ import { List } from '@mui/material';
 
 import './styles.scss';
 import TodoItem from '../todo';
-import { useEffect } from 'react';
 
 interface TodoListProps {
-    todos: Array<any>;
+    todos: Array<TodoProps>;
+}
+
+interface TodoProps {
+    id: string;
+    title: string;
+    text?: string;
+    deadline_at?: string;
+    created_at: string;
+    status: string;
+    priority: number;
+    completed: boolean;
+    index: number;
 }
 
 const TodoList = observer(({ todos = [] }: TodoListProps) => {
-    useEffect(() => {}, [todos]);
     return (
         <>
             <section className='todo__body '>
                 {todos.length > 0 ? (
                     <List className='todo__list'>
-                        {todos.map((todo) => {
-                            return <TodoItem key={todo.id} {...todo} />;
+                        {todos.map((todo, index) => {
+                            return <TodoItem key={todo.id} {...todo} index={++index} />;
                         })}
                     </List>
                 ) : (
