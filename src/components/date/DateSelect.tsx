@@ -26,7 +26,6 @@ export default function DateSelect({ sx, date, setter, label = 'Дата под�
             <DatePicker
                 label={label}
                 value={date ? dayjs(date) : null}
-                disablePast={true}
                 sx={sx}
                 onChange={(e) => setNewDate(e)}
                 slots={{ openPickerIcon: () => <CalendarIcon sx={{ color: '#4b4b4b' }} /> }}

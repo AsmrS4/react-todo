@@ -22,6 +22,9 @@ class TodoViewModel implements ITodoViewModel {
         this.getAll({});
         this.isOpen = false;
     }
+    public setTodos(todos: Array<Object>) {
+        this.todos = todos;
+    }
 
     public addTodo = async(todo: TodoDto): Promise<void> =>{
         try {
@@ -72,6 +75,12 @@ class TodoViewModel implements ITodoViewModel {
             const result: Array<any> = await this.todoService.fetchTodos(params||{});
             runInAction(()=> {
                 this.todos = result;
+                this.todos.sort((a, b) => {
+                    return a.created_at > b.created_at ? 1 : a.created_at > b.created_at ? -1 : 0;
+                });
+                this.todos.sort((a, b) => {
+                    return a.completed > b.completed ? 1 : a.completed < b.completed ? -1 : 0;
+                });
             })
         } catch (error) {
             

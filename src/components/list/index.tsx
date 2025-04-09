@@ -4,6 +4,7 @@ import { List } from '@mui/material';
 import './styles.scss';
 import TodoItem from '../todo';
 import { useEffect } from 'react';
+import todoViewModel from '../../store/TodoViewModel';
 
 interface TodoListProps {
     todos: Array<TodoProps>;
@@ -22,15 +23,6 @@ interface TodoProps {
 }
 
 const TodoList = observer(({ todos = [] }: TodoListProps) => {
-    useEffect(() => {
-        todos.sort((a, b) => {
-            return a.created_at > b.created_at ? 1 : a.created_at > b.created_at ? -1 : 0;
-        });
-        todos.sort((a, b) => {
-            return a.completed > b.completed ? 1 : a.completed < b.completed ? -1 : 0;
-        });
-        console.log(todos);
-    }, [todos]);
     return (
         <>
             <section className='todo__body '>

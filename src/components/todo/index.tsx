@@ -54,7 +54,7 @@ const TodoItem = observer(
 
         useEffect(() => {
             setTodoType(deadline_at || null);
-        }, []);
+        }, [deadline_at]);
 
         return (
             <>
