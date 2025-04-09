@@ -5,8 +5,8 @@ import CustomSwitch from '../switch/TodoSwitch';
 import { useState } from 'react';
 
 const Filters = () => {
-    const [sorting, setSorting] = useState('ASC');
-    const [priority, setPriority] = useState('ASC');
+    const [sorting, setSorting] = useState('');
+    const [priority, setPriority] = useState('');
     const [checked, setChecked] = useState(false);
 
     const handleApply = () => {};
