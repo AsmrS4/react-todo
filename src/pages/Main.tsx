@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Fab } from '@mui/material';
 import { observer } from 'mobx-react';
 
 import Filters from '../components/filter';
@@ -6,6 +6,7 @@ import TodoList from '../components/list';
 import TodoHeader from '../components/header';
 import todoViewModel from '../store/TodoViewModel';
 import { CreateModal } from '../components/modal/CreateModal';
+import CreateIcon from '@mui/icons-material/Create';
 import { EditModal } from '../components/modal/EditModal';
 
 const Main = observer(() => {
@@ -20,17 +21,17 @@ const Main = observer(() => {
                         </div>
                         <div className='wrapper-column'>
                             <Filters />
-                            <Button
-                                className='button'
-                                sx={{ width: '92%' }}
-                                onClick={() => {
-                                    todoViewModel.openModal();
-                                }}
-                            >
-                                Новая задача +
-                            </Button>
                         </div>
                     </div>
+                </div>
+                <div className='abs-layout'>
+                    <Fab
+                        onClick={() => {
+                            todoViewModel.openModal();
+                        }}
+                    >
+                        <CreateIcon sx={{ width: '24px', height: '24px' }} />
+                    </Fab>
                 </div>
             </main>
             <CreateModal />

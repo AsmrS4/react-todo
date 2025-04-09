@@ -3,8 +3,6 @@ import { List } from '@mui/material';
 
 import './styles.scss';
 import TodoItem from '../todo';
-import { useEffect } from 'react';
-import todoViewModel from '../../store/TodoViewModel';
 
 interface TodoListProps {
     todos: Array<TodoProps>;
