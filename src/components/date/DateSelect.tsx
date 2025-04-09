@@ -1,4 +1,3 @@
-import * as React from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -16,7 +15,9 @@ interface DateParams {
 export default function DateSelect({ sx, date, setter, label = 'Дата подачи' }: DateParams) {
     const setNewDate = (e: any) => {
         let date = new Date(e).toLocaleDateString(e);
-        date = DateUtils.transformDateToISO(date);
+        console.log('1: ' + date);
+        date = DateUtils.transformToJSON(date);
+        console.log('2: ' + date);
         setter(date);
     };
     return (

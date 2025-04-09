@@ -20,7 +20,7 @@ const TodoSwitch = styled((props: SwitchProps) => (
             transform: 'translateX(16px)',
             color: '#333333',
             '& + .MuiSwitch-track': {
-                backgroundColor: '#8cbbeb',
+                backgroundColor: '#fff',
                 opacity: 1,
                 border: 0,
                 ...theme.applyStyles('dark', {
@@ -68,13 +68,14 @@ const TodoSwitch = styled((props: SwitchProps) => (
 }));
 
 interface CustomSwitchProps {
+    label: string;
     initialValue: boolean;
     setter: any;
 }
 
-export default function CustomSwitch({ initialValue, setter }: CustomSwitchProps) {
+export default function CustomSwitch({ label, initialValue, setter }: CustomSwitchProps) {
     const handleChange = () => {
-        setter(!initialValue);
+        setter((prev: boolean) => !prev);
     };
 
     return (
@@ -89,11 +90,11 @@ export default function CustomSwitch({ initialValue, setter }: CustomSwitchProps
                 boxSizing: 'border-box',
             }}
         >
-            <TodoSwitch value={initialValue} onChange={handleChange} />
+            <TodoSwitch value={initialValue} checked={initialValue} onChange={handleChange} />
             <Typography
                 className={initialValue ? 'switch-label-text checked' : 'switch-label-text'}
             >
-                Только активные
+                {label}
             </Typography>
         </Stack>
     );
