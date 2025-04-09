@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import './index.scss';
-import { useEffect, useState } from 'react';
 
 const TodoSwitch = styled((props: SwitchProps) => (
     <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
@@ -21,7 +20,7 @@ const TodoSwitch = styled((props: SwitchProps) => (
             transform: 'translateX(16px)',
             color: '#333333',
             '& + .MuiSwitch-track': {
-                backgroundColor: '#8cbbeb',
+                backgroundColor: '#fff',
                 opacity: 1,
                 border: 0,
                 ...theme.applyStyles('dark', {
