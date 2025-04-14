@@ -42,6 +42,10 @@ export class DateUtils {
         return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) < 0;
     }
 
+    public static isCompletedBeforeDeadline = (deadlineDate: string, lastModifiedDate: string) => {
+        return DateUtils.transformDateToMillis(deadlineDate) - DateUtils.transformDateToMillis(lastModifiedDate) > 0;
+    }
+
     public static isOverduedTask = (deadline: string): boolean => {
         let now = DateUtils.getToday();
         return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <=  259200000 && DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) >= 0;

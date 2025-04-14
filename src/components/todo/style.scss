@@ -21,6 +21,8 @@
         background-color: inherit;
 
         .item__title {
+            @include flex-row();
+            @include row-centered();
             background-color: inherit;
             font-size: 18px !important;
             font-weight: 700;

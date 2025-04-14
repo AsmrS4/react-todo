@@ -56,7 +56,6 @@ class TodoViewModel implements ITodoViewModel {
     }
 
     public editTodo = async(id: string, newTodo:EditParams): Promise<void> =>{
-        console.log(newTodo)
         try {
             await this.todoService.editTodo(id, newTodo);
             runInAction(async()=> {
@@ -67,6 +66,17 @@ class TodoViewModel implements ITodoViewModel {
         }
     }
 
+    public changeStatus = async(id: string, status:boolean): Promise<void> => {
+        try {
+            await this.todoService.changeStatus(id, status);
+            runInAction(async()=> {
+                await this.getAll()
+            })
+            
+        } catch (error) {
+            
+        }
+    }
 
     public getTodo = async(id:string): Promise<any> => {
         try {

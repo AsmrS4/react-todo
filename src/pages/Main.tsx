@@ -1,4 +1,4 @@
-import { Button, Fab } from '@mui/material';
+import { Fab } from '@mui/material';
 import { observer } from 'mobx-react';
 
 import Filters from '../components/filter';
@@ -7,7 +7,6 @@ import TodoHeader from '../components/header';
 import todoViewModel from '../store/TodoViewModel';
 import { CreateModal } from '../components/modal/CreateModal';
 import CreateIcon from '@mui/icons-material/Create';
-import { EditModal } from '../components/modal/EditModal';
 
 const Main = observer(() => {
     return (

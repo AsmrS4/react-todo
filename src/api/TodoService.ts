@@ -44,6 +44,12 @@ class TodoService {
         .then((response) => {console.log(response.data)})
         .catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
     }
+
+    public changeStatus = async(todoId: string, status:boolean) => {
+        return axios.patch(`${import.meta.env.VITE_APP_API}/api/task/${todoId}/status`, {
+            completed: status
+        }).then(response => console.log(response.data)).catch(e => {throw new Error('Запрос с ошибкой: ' + e)});
+    }
 }
 
 export default TodoService;
