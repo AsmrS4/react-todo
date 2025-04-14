@@ -7,8 +7,15 @@ import TodoHeader from '../components/header';
 import todoViewModel from '../store/TodoViewModel';
 import { CreateModal } from '../components/modal/CreateModal';
 import CreateIcon from '@mui/icons-material/Create';
+import { ToastUtils } from '../utils';
+import { useEffect } from 'react';
 
 const Main = observer(() => {
+    useEffect(() => {
+        if (todoViewModel.hasError) {
+            ToastUtils.getErrorToast('Не удалось получить данные');
+        }
+    }, [todoViewModel.hasError]);
     return (
         <>
             <main className='todo__app'>

@@ -1,3 +1,5 @@
+import {toast} from 'react-toastify';
+
 export class DateUtils {
     
     public static transformDate = (date: string) : string =>{
@@ -43,7 +45,7 @@ export class DateUtils {
     }
 
     public static isCompletedBeforeDeadline = (deadlineDate: string, lastModifiedDate: string) => {
-        return DateUtils.transformDateToMillis(deadlineDate) - DateUtils.transformDateToMillis(lastModifiedDate) > 0;
+        return DateUtils.transformDateToMillis(lastModifiedDate) - DateUtils.transformDateToMillis(deadlineDate) < 0;
     }
 
     public static isOverduedTask = (deadline: string): boolean => {
@@ -51,3 +53,51 @@ export class DateUtils {
         return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <=  259200000 && DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) >= 0;
     }
 }
+
+export class ToastUtils {
+    public static getSuccessToast = (message:string) => {
+        return toast.success(`${message}`, {
+            position: 'bottom-right',
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            closeButton: false,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'colored'
+        });
+    }
+
+    public static getErrorToast = (message:string) => {
+        return toast.error(`${message}`, {
+            position: 'bottom-right',
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            closeButton: false,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'colored'
+        });
+    }
+
+    public static getWarningToast = (message:string) => {
+        return toast.warning(`${message}`, {
+            position: 'bottom-right',
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            closeButton: false,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'colored'
+        });
+    }
+}
+
+
+
+
+
+
+

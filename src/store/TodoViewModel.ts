@@ -16,6 +16,7 @@ class TodoViewModel implements ITodoViewModel {
     todos: Array<any> = [];
     isOpen: boolean;
     todo:any;
+    hasError: boolean = false;
     private queryParams:Object={};
 
     constructor() {
@@ -39,7 +40,9 @@ class TodoViewModel implements ITodoViewModel {
                 await this.getAll();
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
@@ -47,10 +50,13 @@ class TodoViewModel implements ITodoViewModel {
         try {
             await this.todoService.deleteTodo(id);
             runInAction(()=> {
+                this.hasError = false;
                 this.todos = this.todos.filter(todo => todo.id !== id);
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
         
     }
@@ -62,7 +68,9 @@ class TodoViewModel implements ITodoViewModel {
                 await this.getAll()
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
@@ -74,15 +82,20 @@ class TodoViewModel implements ITodoViewModel {
             })
             
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
     public getTodo = async(id:string): Promise<any> => {
         try {
-            return await this.todoService.getTodoById(id);
+            this.hasError = false;
+            return await this.todoService.getTodoById(id);  
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
@@ -90,6 +103,7 @@ class TodoViewModel implements ITodoViewModel {
         try {
             const result: Array<any> = await this.todoService.fetchTodos(this.queryParams);
             runInAction(()=> {
+                this.hasError = false;
                 this.todos = result;
                 this.todos.sort((a, b) => {
                     return a.created_at > b.created_at ? 1 : a.created_at > b.created_at ? -1 : 0;
@@ -99,7 +113,9 @@ class TodoViewModel implements ITodoViewModel {
                 });
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
