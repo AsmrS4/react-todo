@@ -1,4 +1,4 @@
-import { TodoDto } from "src/dto/todo/TodoDto";
+import { TodoDto, TodoProps } from "src/dto/todo/TodoDto";
 import TodoService from "../api/TodoService";
 import ITodoViewModel from "./ITodoViewModel";
 import {makeAutoObservable, runInAction} from 'mobx';
@@ -13,7 +13,7 @@ interface EditParams {
 
 class TodoViewModel implements ITodoViewModel {
     todoService: TodoService = new TodoService();
-    todos: Array<any> = [];
+    todos: Array<TodoProps> = [];
     isOpen: boolean;
     todo:any;
     hasError: boolean = false;
@@ -24,7 +24,7 @@ class TodoViewModel implements ITodoViewModel {
         this.getAll();
         this.isOpen = false;
     }
-    public setTodos(todos: Array<Object>) {
+    public setTodos(todos: Array<TodoProps>) {
         this.todos = todos;
     }
     public setQueryParams(params: Object) {

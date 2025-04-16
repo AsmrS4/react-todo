@@ -22,7 +22,7 @@ const TodoList = observer(({ todos = [] }: TodoListProps) => {
                 ) : (
                     <>
                         <div className='empty__todos'>
-                            <h2 className='empty__label'>{'У вас нет задач'}</h2>
+                            <h2 className='empty__label'>{'Список пуст'}</h2>
                         </div>
                     </>
                 )}
