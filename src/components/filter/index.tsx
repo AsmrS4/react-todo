@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import SelectInput from '../select';
 import './styles.scss';
 import CustomSwitch from '../switch/TodoSwitch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import todoViewModel from '../../store/TodoViewModel';
 
@@ -23,6 +23,10 @@ const Filters = () => {
             completed: checked ? false : null,
         });
     };
+
+    useEffect(() => {
+        handleApply();
+    }, [sorting, priority, checked]);
 
     return (
         <>
@@ -68,14 +72,6 @@ const Filters = () => {
                             onClick={handlePass}
                         >
                             Сбросить
-                        </Button>
-                        <Button
-                            className='button'
-                            sx={{ width: 1 }}
-                            variant='outlined'
-                            onClick={handleApply}
-                        >
-                            Применить
                         </Button>
                     </div>
                 </section>
