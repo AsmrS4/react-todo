@@ -66,6 +66,12 @@ main.todo__app {
     justify-content: space-between;
     box-sizing: border-box;
     gap: 20px;
+
+    @media (max-width: 768px) {
+        @include flex-column();
+        @include column-centered();
+        flex-direction: column-reverse;
+    }
 }
 
 div.wrapper-column {
@@ -75,6 +81,11 @@ div.wrapper-column {
     @include flex-column();
     @include column-centered();
     gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: auto;
+    }
 }
 
 .MuiFormControl-root.MuiTextField-root {
@@ -123,4 +134,18 @@ select:-webkit-autofill:focus {
     -webkit-text-fill-color: #fff;
 
     transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+    &:active,
+    &:hover,
+    &:focus {
+        outline: 0 !important;
+        outline-offset: 0 !important;
+    }
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border-color: #444444 !important;
+    border-width: 0.5px !important;
 }
