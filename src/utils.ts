@@ -41,7 +41,7 @@ export class DateUtils {
 
     public static isLateTask = (deadline: string): boolean => {
         let now = DateUtils.getToday();
-        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) < 0;
+        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <= 0;
     }
 
     public static isCompletedBeforeDeadline = (deadlineDate: string, lastModifiedDate: string) => {
@@ -50,7 +50,7 @@ export class DateUtils {
 
     public static isOverduedTask = (deadline: string): boolean => {
         let now = DateUtils.getToday();
-        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <=  259200000 && DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) >= 0;
+        return DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) <=  259200000 && DateUtils.transformDateToMillis(deadline) - DateUtils.transformDateToMillis(now) > 0;
     }
 }
 
