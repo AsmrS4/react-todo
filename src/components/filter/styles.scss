@@ -34,5 +34,27 @@
             width: 100%;
             gap: 16px;
         }
+        .buttons-wrapper {
+            width: 100%;
+            gap: 10px;
+            @include flex-column();
+            @include column-centered();
+        }
+    }
+    @media (max-width: 768px) {
+        height: auto;
+        .filter {
+            height: 200px;
+            .filters-wrapper {
+                @include flex-row();
+                @include row-centered();
+            }
+            .buttons-wrapper {
+                width: 100%;
+                gap: 10px;
+                @include flex-row();
+                @include row-centered();
+            }
+        }
     }
 }

@@ -21,6 +21,8 @@
         background-color: inherit;
 
         .item__title {
+            @include flex-row();
+            @include row-centered();
             background-color: inherit;
             font-size: 18px !important;
             font-weight: 700;
@@ -171,6 +173,7 @@
         .head-wrapper {
             .item__title {
                 color: #5a5a5a;
+                text-decoration: line-through;
             }
 
             div {

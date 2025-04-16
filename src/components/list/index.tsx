@@ -3,21 +3,10 @@ import { List } from '@mui/material';
 
 import './styles.scss';
 import TodoItem from '../todo';
+import { TodoProps } from '../../dto/todo/TodoDto';
 
 interface TodoListProps {
     todos: Array<TodoProps>;
-}
-
-interface TodoProps {
-    id: string;
-    title: string;
-    text?: string;
-    deadline_at?: string;
-    created_at: string;
-    status: string;
-    priority: number;
-    completed: boolean;
-    index: number;
 }
 
 const TodoList = observer(({ todos = [] }: TodoListProps) => {
@@ -33,7 +22,7 @@ const TodoList = observer(({ todos = [] }: TodoListProps) => {
                 ) : (
                     <>
                         <div className='empty__todos'>
-                            <h2 className='empty__label'>{'У вас нет задач'}</h2>
+                            <h2 className='empty__label'>{'Список пуст'}</h2>
                         </div>
                     </>
                 )}

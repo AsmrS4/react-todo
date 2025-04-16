@@ -1,4 +1,4 @@
-import { TodoDto } from "src/dto/todo/TodoDto";
+import { TodoDto, TodoProps } from "src/dto/todo/TodoDto";
 import TodoService from "../api/TodoService";
 import ITodoViewModel from "./ITodoViewModel";
 import {makeAutoObservable, runInAction} from 'mobx';
@@ -13,9 +13,10 @@ interface EditParams {
 
 class TodoViewModel implements ITodoViewModel {
     todoService: TodoService = new TodoService();
-    todos: Array<any> = [];
+    todos: Array<TodoProps> = [];
     isOpen: boolean;
     todo:any;
+    hasError: boolean = false;
     private queryParams:Object={};
 
     constructor() {
@@ -23,7 +24,7 @@ class TodoViewModel implements ITodoViewModel {
         this.getAll();
         this.isOpen = false;
     }
-    public setTodos(todos: Array<Object>) {
+    public setTodos(todos: Array<TodoProps>) {
         this.todos = todos;
     }
     public setQueryParams(params: Object) {
@@ -39,7 +40,9 @@ class TodoViewModel implements ITodoViewModel {
                 await this.getAll();
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
@@ -47,32 +50,52 @@ class TodoViewModel implements ITodoViewModel {
         try {
             await this.todoService.deleteTodo(id);
             runInAction(()=> {
+                this.hasError = false;
                 this.todos = this.todos.filter(todo => todo.id !== id);
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
         
     }
 
     public editTodo = async(id: string, newTodo:EditParams): Promise<void> =>{
-        console.log(newTodo)
         try {
             await this.todoService.editTodo(id, newTodo);
             runInAction(async()=> {
                 await this.getAll()
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
+    public changeStatus = async(id: string, status:boolean): Promise<void> => {
+        try {
+            await this.todoService.changeStatus(id, status);
+            runInAction(async()=> {
+                await this.getAll()
+            })
+            
+        } catch (error) {
+            runInAction(()=> {
+                this.hasError = true;
+            })
+        }
+    }
 
     public getTodo = async(id:string): Promise<any> => {
         try {
-            return await this.todoService.getTodoById(id);
+            this.hasError = false;
+            return await this.todoService.getTodoById(id);  
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
@@ -80,6 +103,7 @@ class TodoViewModel implements ITodoViewModel {
         try {
             const result: Array<any> = await this.todoService.fetchTodos(this.queryParams);
             runInAction(()=> {
+                this.hasError = false;
                 this.todos = result;
                 this.todos.sort((a, b) => {
                     return a.created_at > b.created_at ? 1 : a.created_at > b.created_at ? -1 : 0;
@@ -89,7 +113,9 @@ class TodoViewModel implements ITodoViewModel {
                 });
             })
         } catch (error) {
-            
+            runInAction(()=> {
+                this.hasError = true;
+            })
         }
     }
 
