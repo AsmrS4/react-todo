@@ -19,9 +19,9 @@
         @include column-centered();
         gap: 8px;
         border-radius: 8px;
-        background-color: $dark-grey-color;
-        padding: 12px;
-        border: 1px solid #3f3f3f;
+        background-color: inherit !important;
+        padding: 0;
+
         box-sizing: border-box;
 
         .todo__item {

@@ -4,9 +4,25 @@
 form.modal-form {
     @include flex-column();
     @include column-centered();
-    height: 100%;
-
+    height: auto;
     box-sizing: border-box;
     padding: 20px 0px 0px 0px;
     gap: 16px;
+}
+
+.row-wrapper {
+    @include flex-row();
+    @include row-centered();
+    width: 100%;
+    gap: 10px;
+}
+
+.switch-label-text {
+    color: #5f5f5f !important;
+    transition: 0.2s ease-in-out;
+    font-size: 16px;
+    font-weight: 500;
+    &.checked {
+        color: #fff !important;
+    }
 }

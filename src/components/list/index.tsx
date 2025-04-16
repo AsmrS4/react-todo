@@ -3,27 +3,26 @@ import { List } from '@mui/material';
 
 import './styles.scss';
 import TodoItem from '../todo';
-import { useEffect } from 'react';
+import { TodoProps } from '../../dto/todo/TodoDto';
 
 interface TodoListProps {
-    todos: Array<any>;
+    todos: Array<TodoProps>;
 }
 
 const TodoList = observer(({ todos = [] }: TodoListProps) => {
-    useEffect(() => {}, [todos]);
     return (
         <>
             <section className='todo__body '>
                 {todos.length > 0 ? (
                     <List className='todo__list'>
-                        {todos.map((todo) => {
-                            return <TodoItem key={todo.id} {...todo} />;
+                        {todos.map((todo, index) => {
+                            return <TodoItem key={todo.id} {...todo} index={++index} />;
                         })}
                     </List>
                 ) : (
                     <>
                         <div className='empty__todos'>
-                            <h2 className='empty__label'>{'У вас нет задач'}</h2>
+                            <h2 className='empty__label'>{'Список пуст'}</h2>
                         </div>
                     </>
                 )}

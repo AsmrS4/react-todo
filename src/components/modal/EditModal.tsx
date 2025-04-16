@@ -9,55 +9,86 @@ import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import './styles.scss';
-import todoViewModel from '../../store/TodoViewModel';
-import { useInput } from '../../hooks/useInput.ts';
-import { DateUtils } from '../../utils.ts';
-import SelectInput from '../select/index.tsx';
 import DateSelect from '../date/DateSelect.tsx';
+import SelectInput from '../select/index.tsx';
+import { useInput } from '../../hooks/useInput.ts';
+import todoViewModel from '../../store/TodoViewModel';
+import CustomSwitch from '../switch/TodoSwitch.tsx';
 
-export const CreateModal = observer(() => {
+interface EditParams {
+    isOpen: boolean;
+    setter: any;
+    id: string;
+}
+
+export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
+    const [details, setDetails] = useState({
+        title: '',
+        text: '',
+        priority: '',
+        deadline_at: '',
+        completed: false,
+    });
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
-    const [priority, setPriority] = useState('3');
-    const [deadlineAt, setDeadline] = useState(null);
+    const [priority, setPriority] = useState('');
+    const [deadlineAt, setDeadline] = useState('');
     const [isValid, setIsValid] = useState(false);
+    const [completed, setCompleted] = useState(false);
 
     const validateForm = async () => {
-        return setIsValid(!title.minLengthError && title.value !== '');
+        return setIsValid(
+            (!title.minLengthError && title.value !== '') ||
+                completed !== null ||
+                deadlineAt !== null,
+        );
     };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await todoViewModel.addTodo({
+
+        await todoViewModel.editTodo(id, {
             title: title.value,
             text: text,
             priority: priority,
-            deadline: DateUtils.transformToJSON(deadlineAt || '') || null,
+            deadline_at: deadlineAt,
+            completed: completed,
         });
-        title.setValue('');
-        setDeadline(null);
-        setPriority(priority);
-        setText('');
         handleClose();
     };
 
     const handleClose = () => {
-        todoViewModel.closeModal();
+        setter(false);
     };
 
     useEffect(() => {
         validateForm();
-    }, [title.value]);
+    }, [title.value, completed, deadlineAt]);
+
+    useEffect(() => {
+        (async () => {
+            setDetails(await todoViewModel.getTodo(id));
+        })();
+    }, []);
+
+    useEffect(() => {
+        title.setValue(details.title);
+        setText(details.text);
+        setPriority(details.priority);
+        setCompleted(details.completed);
+        setDeadline(details.deadline_at);
+    }, [details]);
 
     return (
         <>
-            <Dialog open={todoViewModel.isOpen} onClose={handleClose} component={'span'}>
+            <Dialog sx={{ height: 'auto' }} open={isOpen} onClose={handleClose} component={'span'}>
                 <DialogTitle sx={{ color: '#fff', backgroundColor: '#222222', border: 'none' }}>
-                    {'Новая задача'}
+                    {'Редактирование задачи'}
                 </DialogTitle>
                 <DialogContent
                     sx={{
-                        height: 'auto',
+                        maxHeight: '800px',
+                        height: '340px',
                         width: '600px',
                         boxSizing: 'border-box',
                         backgroundColor: '#222222',
@@ -79,6 +110,7 @@ export const CreateModal = observer(() => {
                                 }}
                                 error={title.value != '' && title.minLengthError}
                             />
+
                             <TextField
                                 label={'Описание'}
                                 sx={{ width: 1 }}
@@ -107,6 +139,11 @@ export const CreateModal = observer(() => {
                                     label={'Дедлайн'}
                                 />
                             </div>
+                            <CustomSwitch
+                                label='Выполнено'
+                                initialValue={completed}
+                                setter={setCompleted}
+                            />
                         </form>
                     </DialogContentText>
                 </DialogContent>
