@@ -60,22 +60,24 @@ const Filters = () => {
                         initialValue={checked}
                         setter={setChecked}
                     />
-                    <Button
-                        className='button'
-                        sx={{ width: 1 }}
-                        variant='outlined'
-                        onClick={handlePass}
-                    >
-                        Сбросить
-                    </Button>
-                    <Button
-                        className='button'
-                        sx={{ width: 1 }}
-                        variant='outlined'
-                        onClick={handleApply}
-                    >
-                        Применить
-                    </Button>
+                    <div className='buttons-wrapper'>
+                        <Button
+                            className='button'
+                            sx={{ width: 1 }}
+                            variant='outlined'
+                            onClick={handlePass}
+                        >
+                            Сбросить
+                        </Button>
+                        <Button
+                            className='button'
+                            sx={{ width: 1 }}
+                            variant='outlined'
+                            onClick={handleApply}
+                        >
+                            Применить
+                        </Button>
+                    </div>
                 </section>
             </div>
         </>
