@@ -11,15 +11,15 @@ import { useEffect, useState } from 'react';
 import './styles.scss';
 import todoViewModel from '../../store/TodoViewModel';
 import { useInput } from '../../hooks/useInput.ts';
-import { DateUtils } from '../../utils.ts';
+import { DateUtils, Parser } from '../../utils.ts';
 import SelectInput from '../select/index.tsx';
 import DateSelect from '../date/DateSelect.tsx';
 
 export const CreateModal = observer(() => {
-    const title = useInput('', { minLength: 6 });
-    const [text, setText] = useState('');
-    const [priority, setPriority] = useState('3');
-    const [deadlineAt, setDeadline] = useState(null);
+    const title = useInput('', { minLength: 4 });
+    const [text, setText] = useState<string | null>('');
+    const [priority, setPriority] = useState<string | null>(null);
+    const [deadlineAt, setDeadline] = useState<string | null>(null);
     const [isValid, setIsValid] = useState(false);
 
     const validateForm = async () => {
@@ -28,26 +28,34 @@ export const CreateModal = observer(() => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        const parsedData = Parser.parseTitle(title.value);
+
         await todoViewModel.addTodo({
-            title: title.value,
+            title: cleanTitle(),
             text: text,
-            priority: priority,
-            deadline: DateUtils.transformToJSON(deadlineAt || '') || null,
+            priority: priority ?? parsedData.priority,
+            deadline:
+                DateUtils.transformDateToISO(deadlineAt ?? (parsedData.deadline || '')) || null,
         });
-        title.setValue('');
-        setDeadline(null);
-        setPriority(priority);
-        setText('');
+
         handleClose();
     };
 
     const handleClose = () => {
+        title.setValue('');
+        setDeadline(null);
+        setPriority(null);
+        setText('');
         todoViewModel.closeModal();
     };
 
     useEffect(() => {
         validateForm();
-    }, [title.value]);
+    }, [title.minLengthError]);
+
+    const cleanTitle = () => {
+        return Parser.parseTitle(title.value.trim()).title;
+    };
 
     return (
         <>
@@ -70,14 +78,12 @@ export const CreateModal = observer(() => {
                                 label={
                                     !title.minLengthError || title.value === ''
                                         ? 'Название'
-                                        : `Не хватает ${6 - title.value.length} символов`
+                                        : `Не хватает ${4 - title.value.length} символов`
                                 }
                                 value={title.value}
                                 size='medium'
-                                onChange={(e) => {
-                                    title.onChange(e);
-                                }}
-                                error={title.value != '' && title.minLengthError}
+                                onChange={(e) => title.onChange(e)}
+                                error={title.isEmpty}
                             />
                             <TextField
                                 label={'Описание'}
@@ -102,7 +108,7 @@ export const CreateModal = observer(() => {
                                 />
                                 <DateSelect
                                     sx={{ marginX: '0', width: '100%' }}
-                                    date={deadlineAt || ''}
+                                    date={deadlineAt?.toString() || ''}
                                     setter={setDeadline}
                                     label={'Дедлайн'}
                                 />

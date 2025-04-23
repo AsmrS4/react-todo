@@ -29,6 +29,7 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
         deadline_at: '',
         completed: false,
     });
+
     const title = useInput('', { minLength: 6 });
     const [text, setText] = useState('');
     const [priority, setPriority] = useState('');
@@ -164,7 +165,7 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
                         disabled={!isValid}
                         onClick={handleSubmit}
                     >
-                        {'Создать'}
+                        {'Изменить'}
                     </Button>
                 </DialogActions>
             </Dialog>
