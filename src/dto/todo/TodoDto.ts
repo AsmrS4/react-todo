@@ -1,8 +1,8 @@
 export interface TodoDto {
     title: string;
-    text?: string;
-    priority: string;
-    deadline?: string | null;
+    text?: string | null; 
+    priority?: string | null;
+    deadline?: string| null;
 }
 
 export interface TodoProps {

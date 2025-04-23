@@ -1,4 +1,7 @@
 import {toast} from 'react-toastify';
+import { dateRegex, priorityMapping, priorityRegex } from './constant';
+import { TodoDto } from './dto/todo/TodoDto';
+import { Priorities } from './enum/Priority';
 
 export class DateUtils {
     
@@ -95,6 +98,43 @@ export class ToastUtils {
     }
 }
 
+export class Parser {
+    public static parseTitle(title: string): TodoDto {
+        const parsedData: TodoDto = { title };
+        const prioritiesFound: Array<string> = [];
+        let match;
+
+        while ((match = priorityRegex.exec(title))) {
+            const matchedPriority = match[0];
+            prioritiesFound.push(priorityMapping[matchedPriority as Priorities]);
+        }
+
+        if (prioritiesFound.length > 0) {
+            parsedData.priority = prioritiesFound[prioritiesFound.length - 1];
+        }
+
+        prioritiesFound.forEach(priority => {
+            const macroname = `!${priority}`
+            title = title.replace(macroname, '').trim();
+        });
+
+        parsedData.title = title
+
+        const dateMatch = title.match(dateRegex);
+        if (dateMatch?.length) {
+            try {
+                const cleanedDate = dateMatch[1].replace(/[-\/]/g, '/'); 
+                if (!isNaN(new Date(cleanedDate).getTime())) {
+                    parsedData.deadline = cleanedDate;
+                    parsedData.title = title.replace(dateMatch[0], '').trim();
+                }
+            } catch (err) {
+                console.error("Ошибка парсинга даты:", err);
+            }
+        }
+        return parsedData;
+    }
+}
 
 
 
