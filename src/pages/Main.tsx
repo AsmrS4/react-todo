@@ -13,9 +13,9 @@ import { useEffect } from 'react';
 const Main = observer(() => {
     useEffect(() => {
         if (todoViewModel.hasError) {
-            ToastUtils.getErrorToast('Не удалось выполнить запрос');
+            ToastUtils.getErrorToast(todoViewModel.errorMessage);
         }
-    }, [todoViewModel.hasError]);
+    }, [todoViewModel.hasError, todoViewModel.errorMessage]);
     return (
         <>
             <main className='todo__app'>

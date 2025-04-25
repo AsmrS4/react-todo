@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import './styles.scss';
 import todoViewModel from '../../store/TodoViewModel';
@@ -20,22 +20,16 @@ export const CreateModal = observer(() => {
     const [text, setText] = useState<string | null>(null);
     const [priority, setPriority] = useState<string | null>(null);
     const [deadlineAt, setDeadline] = useState<string | null>(null);
-    const [isValid, setIsValid] = useState(false);
+    const [isValid, setIsValid] = useState<boolean>(false);
 
     const validateForm = async () => {
-        return setIsValid(!title.minLengthError && title.value !== '');
+        return setIsValid(!title.minLengthError && title.value.trim() !== '');
     };
 
-    const handleSubmit = async (event: any) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         const parsedData = Parser.parseTitle(title.value);
-        console.log({
-            title: cleanTitle(),
-            text: text,
-            priority: (priority ?? parsedData.priority) || '3',
-            deadline:
-                DateUtils.transformDateToISO(deadlineAt ?? (parsedData.deadline || '')) || null,
-        });
+
         await todoViewModel.addTodo({
             title: cleanTitle(),
             text: text,
@@ -81,11 +75,7 @@ export const CreateModal = observer(() => {
                         <form className='modal-form' action='' onSubmit={handleSubmit}>
                             <TextField
                                 sx={{ width: 1, color: '#fff' }}
-                                label={
-                                    !title.minLengthError || title.value === ''
-                                        ? 'Название'
-                                        : `Не хватает ${4 - title.value.length} символов`
-                                }
+                                label={'Название'}
                                 value={title.value}
                                 size='medium'
                                 onChange={(e) => title.onChange(e)}

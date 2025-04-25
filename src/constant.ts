@@ -10,3 +10,6 @@ export const priorityMapping: Record<Priorities, string> = {
   [Priorities.Low]: '4'
 };
 
+export const ERROR_400 = 'Некорректные данные';
+export const ERROR_500 = 'Не удалось обработать запрос';
+
