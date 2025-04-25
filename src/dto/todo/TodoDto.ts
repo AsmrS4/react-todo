@@ -17,3 +17,12 @@ export interface TodoProps {
     completed: boolean;
     index: number;
 }
+
+
+export interface EditTodoProps {
+    text?: string | null,
+    title:string,
+    priority?:string | null,
+    deadline_at?:string|null,
+    completed: boolean
+}

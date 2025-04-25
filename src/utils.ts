@@ -122,16 +122,12 @@ export class Parser {
 
         const dateMatch = title.match(dateRegex);
         if (dateMatch?.length) {
-            try {
-                const cleanedDate = dateMatch[1].replace(/[-\/]/g, '/'); 
-                if (!isNaN(new Date(cleanedDate).getTime())) {
-                    parsedData.deadline = cleanedDate;
-                    parsedData.title = title.replace(dateMatch[0], '').trim();
-                }
-            } catch (err) {
-                console.error("Ошибка парсинга даты:", err);
-            }
+            parsedData.deadline = dateMatch[1].replace(/[-\/\.]/g, '/');
+            parsedData.title = title.replace(dateMatch[0], '').trim();
+        } else {
+            parsedData.title = title.replace('!before', '').trim();
         }
+        
         return parsedData;
     }
 }

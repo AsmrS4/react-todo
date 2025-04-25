@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { observer } from 'mobx-react';
 import { TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import './styles.scss';
 import DateSelect from '../date/DateSelect.tsx';
@@ -14,6 +14,7 @@ import SelectInput from '../select/index.tsx';
 import { useInput } from '../../hooks/useInput.ts';
 import todoViewModel from '../../store/TodoViewModel';
 import CustomSwitch from '../switch/TodoSwitch.tsx';
+import { DateUtils, Parser } from '../../utils.ts';
 
 interface EditParams {
     isOpen: boolean;
@@ -30,29 +31,30 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
         completed: false,
     });
 
-    const title = useInput('', { minLength: 6 });
-    const [text, setText] = useState('');
-    const [priority, setPriority] = useState('');
-    const [deadlineAt, setDeadline] = useState('');
-    const [isValid, setIsValid] = useState(false);
-    const [completed, setCompleted] = useState(false);
+    const title = useInput('', { minLength: 4 });
+    const [text, setText] = useState<string | null>(null);
+    const [priority, setPriority] = useState<string | null>(null);
+    const [deadlineAt, setDeadline] = useState<string | null>(null);
+    const [isValid, setIsValid] = useState<boolean>(false);
+    const [completed, setCompleted] = useState<boolean>(false);
 
     const validateForm = async () => {
         return setIsValid(
-            (!title.minLengthError && title.value !== '') ||
+            (!title.minLengthError && title.value.trim() !== '') ||
                 completed !== null ||
                 deadlineAt !== null,
         );
     };
 
-    const handleSubmit = async (event: any) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-
+        const parsedData = Parser.parseTitle(title.value);
         await todoViewModel.editTodo(id, {
-            title: title.value,
+            title: cleanTitle(),
             text: text,
-            priority: priority,
-            deadline_at: deadlineAt,
+            priority: priority ?? parsedData.priority,
+            deadline_at:
+                DateUtils.transformDateToISO(deadlineAt ?? (parsedData.deadline || '')) || null,
             completed: completed,
         });
         handleClose();
@@ -60,6 +62,10 @@ export const EditModal = observer(({ isOpen, setter, id }: EditParams) => {
 
     const handleClose = () => {
         setter(false);
+    };
+
+    const cleanTitle = () => {
+        return Parser.parseTitle(title.value.trim()).title;
     };
 
     useEffect(() => {
