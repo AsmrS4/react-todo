@@ -17,7 +17,7 @@ import DateSelect from '../date/DateSelect.tsx';
 
 export const CreateModal = observer(() => {
     const title = useInput('', { minLength: 4 });
-    const [text, setText] = useState<string | null>('');
+    const [text, setText] = useState<string | null>(null);
     const [priority, setPriority] = useState<string | null>(null);
     const [deadlineAt, setDeadline] = useState<string | null>(null);
     const [isValid, setIsValid] = useState(false);
@@ -29,7 +29,13 @@ export const CreateModal = observer(() => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const parsedData = Parser.parseTitle(title.value);
-
+        console.log({
+            title: cleanTitle(),
+            text: text,
+            priority: (priority ?? parsedData.priority) || '3',
+            deadline:
+                DateUtils.transformDateToISO(deadlineAt ?? (parsedData.deadline || '')) || null,
+        });
         await todoViewModel.addTodo({
             title: cleanTitle(),
             text: text,
