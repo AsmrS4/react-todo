@@ -38,6 +38,7 @@ class TodoViewModel implements ITodoViewModel {
             await this.todoService.createTodo(todo);
             runInAction(async()=> {
                 await this.getAll();
+                this.hasError = false;
             })
         } catch (error) {
             runInAction(()=> {
@@ -65,7 +66,8 @@ class TodoViewModel implements ITodoViewModel {
         try {
             await this.todoService.editTodo(id, newTodo);
             runInAction(async()=> {
-                await this.getAll()
+                await this.getAll();
+                this.hasError = false;
             })
         } catch (error) {
             runInAction(()=> {
@@ -78,7 +80,8 @@ class TodoViewModel implements ITodoViewModel {
         try {
             await this.todoService.changeStatus(id, status);
             runInAction(async()=> {
-                await this.getAll()
+                await this.getAll();
+                this.hasError = false;
             })
             
         } catch (error) {
@@ -103,7 +106,6 @@ class TodoViewModel implements ITodoViewModel {
         try {
             const result: Array<any> = await this.todoService.fetchTodos(this.queryParams);
             runInAction(()=> {
-                this.hasError = false;
                 this.todos = result;
                 this.todos.sort((a, b) => {
                     return a.created_at > b.created_at ? 1 : a.created_at > b.created_at ? -1 : 0;
@@ -111,6 +113,7 @@ class TodoViewModel implements ITodoViewModel {
                 this.todos.sort((a, b) => {
                     return a.completed > b.completed ? 1 : a.completed < b.completed ? -1 : 0;
                 });
+                this.hasError = false;
             })
         } catch (error) {
             runInAction(()=> {

@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 const Main = observer(() => {
     useEffect(() => {
         if (todoViewModel.hasError) {
-            ToastUtils.getErrorToast('Не удалось получить данные');
+            ToastUtils.getErrorToast('Не удалось выполнить запрос');
         }
     }, [todoViewModel.hasError]);
     return (
